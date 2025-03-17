@@ -11,7 +11,7 @@ from pathlib import Path
 from urllib.parse import quote
 
 # PyQGIS
-from qgis.core import Qgis, QgsApplication
+from qgis.core import Qgis, QgsApplication, QgsSettings
 from qgis.gui import QgsOptionsPageWidget, QgsOptionsWidgetFactory
 from qgis.PyQt import uic
 from qgis.PyQt.Qt import QUrl
@@ -85,6 +85,13 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         self.btn_reset.setIcon(QIcon(QgsApplication.iconPath("mActionUndo.svg")))
         self.btn_reset.pressed.connect(self.reset_settings)
 
+        # initiate settings
+        #s = QgsSettings()
+        #self.enable_annotations.setChecked(int(s.value('/plugins/slyr/enable_annotations', 0)))
+        #self.checkBox_fast_direkt.setChecked(int(s.value('/plugins/lantmateriet/lm_hojd_enabled', 0)))
+        #self.checkBox_fast_direkt.setChecked(int(s.value("/plugins/lantmateriet/lm_fastighet_direkt_enabled", 0)))
+        
+
         # load previously saved settings
         self.load_settings()
 
@@ -93,6 +100,35 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         save them to QgsSettings objects). This is usually called when the options \
         dialog is accepted."""
         settings = self.plg_settings.get_plg_settings()
+        s = QgsSettings()
+        #s.setValue("/plugins/lantmateriet/mytext", "hello world")
+        
+        #Nationella geodataplattformen
+        s.setValue("/plugins/lantmateriet/lm_ngp_authcfg", "1lmgy5x") # TODO: hämta in authcfg dynamiskt
+        s.setValue("/plugins/lantmateriet/lm_ngp_prod_enabled", 0 if not self.rb_ngdp_lmprod.isChecked() else 1)
+        s.setValue("/plugins/lantmateriet/lm_ngp_ver_enabled", 0 if not self.rb_ngdp_lmver.isChecked() else 1)
+        s.setValue("/plugins/lantmateriet/lm_ngp_egen_enabled", 0 if not self.rb_ngdp_lm_egenurl.isChecked() else 1)
+        if self.rb_ngdp_lm_egenurl.isChecked():
+            s.setValue("/plugins/lantmateriet/lm_ngp_egen_url", "https://egen.proxy.se") # TODO: läsa in från GUI
+
+        #Övriga tjänster
+        s.setValue("/plugins/lantmateriet/lm_ovr_authcfg", "1lmgy5x") # TODO: hämta in authcfg dynamiskt
+        s.setValue("/plugins/lantmateriet/lm_ovr_prod_enabled", 0 if not self.rb_ovrig_prod.isChecked() else 1)
+        s.setValue("/plugins/lantmateriet/lm_ovr_ver_enabled", 0 if not self.rb_ovrig_ver.isChecked() else 1)
+        s.setValue("/plugins/lantmateriet/lm_ovr_egen_enabled", 0 if not self.rb_ovrig_lm_egenurl.isChecked() else 1)
+        if self.rb_ovrig_lm_egenurl.isChecked():
+            s.setValue("/plugins/lantmateriet/lm_ovr_egen_url", "https://egen.proxy.se") # TODO: läsa in från GUI     
+        
+        #Tjänster
+        s.setValue("/plugins/lantmateriet/lm_fastighet_direkt_enabled", 0 if not self.checkBox_fast_direkt.isChecked() else 1)
+        s.setValue("/plugins/lantmateriet/lm_belagenhet_direkt_enabled", 0 if not self.checkBox_bel_adress_direkt.isChecked() else 1)
+        s.setValue("/plugins/lantmateriet/lm_fast_samf_direkt_enabled", 0 if not self.checkBox_fast_samf_direkt.isChecked() else 1)
+        s.setValue("/plugins/lantmateriet/lm_orto_nedladd_enabled", 0 if not self.checkBox_ortofoto_nedladdning.isChecked() else 1)
+        s.setValue("/plugins/lantmateriet/lm_hojdgrid_nedladd_enabled", 0 if not self.checkBox_hojdgrid_nedladdning.isChecked() else 1)
+
+        #self.mGroupBox.setChecked(False)
+        #self.mGroupBox.setEnabled(True)
+
 
         # misc
         settings.debug_mode = self.opt_debug.isChecked()
@@ -110,11 +146,31 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
     def load_settings(self):
         """Load options from QgsSettings into UI form."""
         settings = self.plg_settings.get_plg_settings()
+        #print(f"row116: {dir(settings)}")
 
         # global
         self.opt_debug.setChecked(settings.debug_mode)
         self.lbl_version_saved_value.setText(settings.version)
 
+        # initiate settings
+        s = QgsSettings()
+        #self.enable_annotations.setChecked(int(s.value('/plugins/slyr/enable_annotations', 0)))
+        #self.checkBox_fast_direkt.setChecked(int(s.value('/plugins/lantmateriet/lm_hojd_enabled', 0)))
+        self.checkBox_fast_direkt.setChecked(int(s.value("/plugins/lantmateriet/lm_fastighet_direkt_enabled", 0)))
+        self.checkBox_bel_adress_direkt.setChecked(int(s.value("/plugins/lantmateriet/lm_belagenhet_direkt_enabled", 0)))
+        self.checkBox_fast_samf_direkt.setChecked(int(s.value("/plugins/lantmateriet/lm_fast_samf_direkt_enabled", 0)))
+        self.checkBox_ortofoto_nedladdning.setChecked(int(s.value("/plugins/lantmateriet/lm_orto_nedladd_enabled", 0)))
+        self.checkBox_hojdgrid_nedladdning.setChecked(int(s.value("/plugins/lantmateriet/lm_hojdgrid_nedladd_enabled", 0)))
+
+        self.rb_ngdp_lmprod.setChecked(int(s.value("/plugins/lantmateriet/lm_ngp_prod_enabled", 0)))
+        self.rb_ovrig_prod.setChecked(int(s.value("/plugins/lantmateriet/lm_ovr_prod_enabled", 0)))
+
+        self.rb_ngdp_lmver.setChecked(int(s.value("/plugins/lantmateriet/lm_ngp_ver_enabled", 0)))
+        self.rb_ovrig_ver.setChecked(int(s.value("/plugins/lantmateriet/lm_ovr_ver_enabled", 0)))
+
+        self.rb_ngdp_lm_egenurl.setChecked(int(s.value("/plugins/lantmateriet/lm_ngp_egen_enabled", 0)))
+        self.rb_ovrig_lm_egenurl.setChecked(int(s.value("/plugins/lantmateriet/lm_ovr_egen_enabled", 0)))
+        
 
     def reset_settings(self):
         """Reset settings to default values (set in preferences.py module)."""

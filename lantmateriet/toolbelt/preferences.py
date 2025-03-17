@@ -74,6 +74,7 @@ class PlgOptionsManager:
             return None
 
         settings = QgsSettings()
+        #print(f"row77 {dir(settings)}")
         settings.beginGroup(__title__)
 
         try:

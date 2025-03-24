@@ -11,11 +11,13 @@ from pathlib import Path
 from urllib.parse import quote
 
 # PyQGIS
-from qgis.core import Qgis, QgsApplication, QgsSettings
+from qgis.core import Qgis, QgsApplication, QgsSettings, QgsSettingsTree, QgsBrowserModel
 from qgis.gui import QgsOptionsPageWidget, QgsOptionsWidgetFactory
+from qgis.utils import iface
 from qgis.PyQt import uic
 from qgis.PyQt.Qt import QUrl
 from qgis.PyQt.QtGui import QDesktopServices, QIcon
+from qgis.PyQt.QtWidgets import QMessageBox
 
 # project
 from lantmateriet.__about__ import (
@@ -137,11 +139,137 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         # dump new settings into QgsSettings
         self.plg_settings.save_from_object(settings)
 
+        # Automatically create LM connections based on settings
+        self.add_lm_connections()
+
         if __debug__:
             self.log(
                 message="DEBUG - Settings successfully saved.",
                 log_level=4,
             )
+
+    def add_lm_connections(self):
+
+        
+        lm_prod_url = "https://api.lantmateriet.se"
+        lm_ver_url = "https://api.lantmateriet-ver.se"
+
+        # Read plugin settings
+        settings = QgsSettings()
+
+        lm_ovr_authcfg = settings.value("/plugins/lantmateriet/lm_ovriga_authcfg")
+        lm_ngp_authcfg = settings.value("/plugins/lantmateriet/lm_ngp_authcfg")
+        
+        lm_ngp_prod_enabled = settings.value("/plugins/lantmateriet/lm_ngp_prod_enabled")
+        lm_ngp_ver_enabled = settings.value("/plugins/lantmateriet/lm_ngp_ver_enabled")
+        lm_ngp_egen_enabled = settings.value("/plugins/lantmateriet/lm_ngp_egen_enabled")
+
+        lm_ovr_prod_enabled = settings.value("/plugins/lantmateriet/lm_ovr_prod_enabled")
+        lm_ovr_ver_enabled = settings.value("/plugins/lantmateriet/lm_ovr_ver_enabled")
+        lm_ovr_egen_enabled = settings.value("/plugins/lantmateriet/lm_ovr_egen_enabled")
+        
+        lm_fastighet_direkt_enabled = settings.value("/plugins/lantmateriet/lm_fastighet_direkt_enabled")
+        lm_belagenhet_direkt_enabled = settings.value("/plugins/lantmateriet/lm_belagenhet_direkt_enabled")
+        lm_fast_samf_direkt_enabled = settings.value("/plugins/lantmateriet/lm_fast_samf_direkt_enabled")
+        lm_orto_nedladd_enabled = settings.value("/plugins/lantmateriet/lm_orto_nedladd_enabled")
+        lm_hojdgrid_nedladd_enabled = settings.value("/plugins/lantmateriet/lm_hojdgrid_nedladd_enabled")
+
+        # TODO: how to best store list of service
+        service_names = ["Höjdgrid nedladdning", 
+                         "Ortofoton nedladdning", 
+                         "Belägenhetsadress direkt", 
+                         "Fastighetsindelning direkt",
+                         "Fastighet och samfällighet direkt"]
+                
+        """if not lm_ovr_authcfg or lm_ngp_authcfg:
+            # If no auth we can not configure connections
+            return"""
+
+        lm_ngp_baseurl = ""
+        if lm_ngp_prod_enabled:
+            lm_ngp_baseurl = lm_prod_url
+        elif lm_ngp_ver_enabled:
+            lm_ngp_baseurl = lm_ver_url
+        elif lm_ngp_egen_enabled:
+            lm_ngp_baseurl = settings.value("/plugins/lantmateriet/lm_ngp_egen_url")  
+        
+        lm_ovr_baseurl = ""
+        if lm_ovr_prod_enabled:
+            lm_ovr_baseurl = lm_prod_url
+        elif lm_ovr_ver_enabled:
+            lm_ovr_baseurl = lm_ver_url
+        elif lm_ovr_egen_enabled:
+            lm_ovr_baseurl = settings.value("/plugins/lantmateriet/lm_ovr_egen_url") 
+         
+        # Create connection urls
+        stac_connections = {}
+        if int(lm_fastighet_direkt_enabled):
+            stac_connections["Fastighetsindelning direkt"] = lm_ovr_baseurl + "/stac-vektor/v1/collections/fastighetsindelning"
+        if int(lm_belagenhet_direkt_enabled):
+            stac_connections["Belägenhetsadress direkt"] = lm_ovr_baseurl + "/stac-vektor/v1/collections/belagenhetsadresser"
+        if int(lm_orto_nedladd_enabled):
+            stac_connections["Ortofoton nedladdning"] = lm_ovr_baseurl + "/stac-bild/v1"
+        if int(lm_hojdgrid_nedladd_enabled):
+            stac_connections["Höjdgrid nedladdning"] = lm_ovr_baseurl + "/stac-hojd/v1"
+        # TODO: vad är endpoint för Fastighet och samfällighet direkt?
+        """if lm_belagenhet_direkt_enabled:
+            connections["Fastighet och samfällighet direkt"] = lm_ovriga_baseurl + "TBD"""
+
+        # TODO: do the same for OGC API
+        
+        # Get STAC connections node
+        stac_settings_node = (
+            QgsSettingsTree.node("connections")
+                .childNode("stac")
+        )
+
+        # Get WFS connections node
+        dyn_param = ["wfs"]
+        oapif_settings_node = (
+            QgsSettingsTree.node("connections")
+                .childNode("ows")
+                .childNode("connections")
+        )
+        
+        # För att undvika dubbletter kontrolleras namn på befintlig tjänst. 
+        # Om befintlig tjänst existerar och avviker i URL och/eller authcfg ges användare en varning med alternativet att skriva över detta.
+        keys = stac_settings_node.items()
+        for key in keys:
+            if key in service_names:
+                url = stac_settings_node.childSetting("url").value(key)
+                authcfg = stac_settings_node.childSetting("authcfg").value(key)
+                new_url = stac_connections[key]
+                if url != new_url or authcfg != lm_ovr_authcfg:
+                    msg = self.tr("Connection {0} exists. Overwrite?").format(key)
+                    res = QMessageBox.warning(
+                        self,
+                        self.tr("Saving server"),
+                        msg,
+                        QMessageBox.StandardButton.Yes
+                        | QMessageBox.StandardButton.No
+                        | QMessageBox.StandardButton.Cancel,
+                    )
+                    if res == QMessageBox.StandardButton.No:  
+                        stac_connections.pop(key)
+                    elif res == QMessageBox.StandardButton.Cancel:
+                        return
+
+        # Now we can create the connection(s)
+        for connection_name in stac_connections:
+            print ("Lägger till " + connection_name + " med url " + stac_connections[connection_name])
+            stac_settings_node.childSetting("url").setValue(stac_connections[connection_name], connection_name)
+            stac_settings_node.childSetting("authcfg").setValue(lm_ovr_authcfg, connection_name)
+            dyn_param.append(connection_name)
+            oapif_settings_node.childSetting("url").setValue(stac_connections[connection_name], dyn_param)
+            oapif_settings_node.childSetting("authcfg").setValue(lm_ovr_authcfg, dyn_param)
+                
+        # Refresh connections
+        # TODO: call to iface crashes QGIS...
+        """items = iface.browserModel().rootItems()
+        stac_connection = [item for item in items if 'stac' in str(item)]
+        if stac_connection is not None:
+            #Can there be only one?
+            stac_connection[0].refreshConnections("STAC")"""
 
     def load_settings(self):
         """Load options from QgsSettings into UI form."""

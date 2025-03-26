@@ -140,7 +140,7 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         self.plg_settings.save_from_object(settings)
 
         # Automatically create LM connections based on settings
-        self.add_lm_connections()
+        self.add_to_connections()
 
         if __debug__:
             self.log(
@@ -148,9 +148,8 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
                 log_level=4,
             )
 
-    def add_lm_connections(self):
+    def add_to_connections(self):
 
-        
         lm_prod_url = "https://api.lantmateriet.se"
         lm_ver_url = "https://api.lantmateriet-ver.se"
 
@@ -174,13 +173,19 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         lm_orto_nedladd_enabled = settings.value("/plugins/lantmateriet/lm_orto_nedladd_enabled")
         lm_hojdgrid_nedladd_enabled = settings.value("/plugins/lantmateriet/lm_hojdgrid_nedladd_enabled")
 
-        # TODO: how to best store list of service
-        service_names = ["Höjdgrid nedladdning", 
-                         "Ortofoton nedladdning", 
-                         "Belägenhetsadress direkt", 
-                         "Fastighetsindelning direkt",
-                         "Fastighet och samfällighet direkt"]
-                
+        # TODO: how to best store list of service names
+        stac_snames = ["Höjdgrid nedladdning", 
+                       "Ortofoton nedladdning", 
+                       "Belägenhetsadress direkt", 
+                       "Fastighetsindelning direkt",
+                       "Fastighet och samfällighet direkt"]
+        
+        oapif_snames= ["Detaljplan",
+                       "Byggnad",
+                       "Kulturhistorisk lämning",
+                       "Gräns för fjällnära skog"]
+        
+        # TODO: felhantering, om t.ex. autentisering saknas borde det inte gå att spara
         """if not lm_ovr_authcfg or lm_ngp_authcfg:
             # If no auth we can not configure connections
             return"""
@@ -201,7 +206,7 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         elif lm_ovr_egen_enabled:
             lm_ovr_baseurl = settings.value("/plugins/lantmateriet/lm_ovr_egen_url") 
          
-        # Create connection urls
+        # Create STAC connection urls based on users settings
         stac_connections = {}
         if int(lm_fastighet_direkt_enabled):
             stac_connections["Fastighetsindelning direkt"] = lm_ovr_baseurl + "/stac-vektor/v1/collections/fastighetsindelning"
@@ -215,7 +220,13 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         """if lm_belagenhet_direkt_enabled:
             connections["Fastighet och samfällighet direkt"] = lm_ovriga_baseurl + "TBD"""
 
-        # TODO: do the same for OGC API
+        # And for OGC API features
+        oapif_connections = {
+            "Detaljplan": lm_ngp_baseurl + "/distribution/geodatakatalog/sokning/v1/detaljplan/v2",
+            "Byggnad": lm_ngp_baseurl + "/distribution/geodatakatalog/sokning/v1/byggnad/v1",
+            "Kulturhistorisk lämning": lm_ngp_baseurl + "/geodatakatalog/sokning/v1/kulturhistorisklamning/v1",
+            "Gräns för fjällnära skog": lm_ngp_baseurl + "/distribution/geodatakatalog/sokning/v1/gransforfjallnaraskog/v1",
+        }
         
         # Get STAC connections node
         stac_settings_node = (
@@ -223,7 +234,7 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
                 .childNode("stac")
         )
 
-        # Get WFS connections node
+        # Get WFS/OAPIF connections node
         dyn_param = ["wfs"]
         oapif_settings_node = (
             QgsSettingsTree.node("connections")
@@ -231,19 +242,18 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
                 .childNode("connections")
         )
         
-        # För att undvika dubbletter kontrolleras namn på befintlig tjänst. 
-        # Om befintlig tjänst existerar och avviker i URL och/eller authcfg ges användare en varning med alternativet att skriva över detta.
+        # Check if a connection alread exists with same name and if it differsn in authcfg or url. If so, let user decide what to do. 
         keys = stac_settings_node.items()
         for key in keys:
-            if key in service_names:
+            if key in stac_snames:
                 url = stac_settings_node.childSetting("url").value(key)
                 authcfg = stac_settings_node.childSetting("authcfg").value(key)
-                new_url = stac_connections[key]
-                if url != new_url or authcfg != lm_ovr_authcfg:
-                    msg = self.tr("Connection {0} exists. Overwrite?").format(key)
+                updated_url = stac_connections[key]
+                if url != updated_url or authcfg != lm_ovr_authcfg:
+                    msg = self.tr("Tjänsten {0} finns redan men med en annan autentisering eller url. Vill du skriva över?").format(key)
                     res = QMessageBox.warning(
                         self,
-                        self.tr("Saving server"),
+                        self.tr("Spara tjänster"),
                         msg,
                         QMessageBox.StandardButton.Yes
                         | QMessageBox.StandardButton.No
@@ -254,14 +264,43 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
                     elif res == QMessageBox.StandardButton.Cancel:
                         return
 
-        # Now we can create the connection(s)
+        keys = oapif_settings_node.items(dyn_param)
+        for key in keys:
+            if key in oapif_snames:
+                url = oapif_settings_node.childSetting("url").value(key)
+                authcfg = oapif_settings_node.childSetting("authcfg").value(key)
+                updated_url = oapif_connections[key]
+                if url != updated_url or authcfg != lm_ngp_authcfg:
+                    msg = self.tr("Tjänsten {0} finns redan men med en annan autentisering eller url. Vill du skriva över?").format(key)
+                    res = QMessageBox.warning(
+                        self,
+                        self.tr("Spara tjänster"),
+                        msg,
+                        QMessageBox.StandardButton.Yes
+                        | QMessageBox.StandardButton.No
+                        | QMessageBox.StandardButton.Cancel,
+                    )
+                    if res == QMessageBox.StandardButton.No:  
+                        oapif_connections.pop(key)
+                    elif res == QMessageBox.StandardButton.Cancel:
+                        return
+
+        # Create the connection(s)
         for connection_name in stac_connections:
-            print ("Lägger till " + connection_name + " med url " + stac_connections[connection_name])
             stac_settings_node.childSetting("url").setValue(stac_connections[connection_name], connection_name)
             stac_settings_node.childSetting("authcfg").setValue(lm_ovr_authcfg, connection_name)
+            # Also add as OGC API Features
             dyn_param.append(connection_name)
             oapif_settings_node.childSetting("url").setValue(stac_connections[connection_name], dyn_param)
             oapif_settings_node.childSetting("authcfg").setValue(lm_ovr_authcfg, dyn_param)
+            dyn_param.remove(connection_name)
+
+        for connection_name in oapif_connections:
+            dyn_param.append(connection_name)
+            oapif_settings_node.childSetting("url").setValue(oapif_connections[connection_name], dyn_param)
+            oapif_settings_node.childSetting("authcfg").setValue(lm_ovr_authcfg, dyn_param)
+            # TODO: behöver andra inställningar skapas enligt default?
+            dyn_param.remove(connection_name)
                 
         # Refresh connections
         # TODO: call to iface crashes QGIS...

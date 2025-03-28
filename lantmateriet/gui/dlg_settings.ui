@@ -58,7 +58,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QgsCollapsibleGroupBox" name="mGroupBox">
+    <widget class="QgsCollapsibleGroupBox" name="mGroupBox_ngdp">
      <property name="enabled">
       <bool>true</bool>
      </property>
@@ -81,7 +81,7 @@
       <bool>true</bool>
      </property>
      <property name="checked">
-      <bool>false</bool>
+      <bool>true</bool>
      </property>
      <property name="collapsed">
       <bool>false</bool>
@@ -122,6 +122,27 @@
           </property>
           <property name="text">
            <string>Egen URL:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="line_edit_ngdp_lm_egenurl"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QPushButton" name="pb_ngdp_lm_access">
+          <property name="text">
+           <string>Ange åtkomstnycklar</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_update">
+          <property name="text">
+           <string>Debug update authlist</string>
           </property>
          </widget>
         </item>
@@ -167,7 +188,7 @@
        </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
         <item>
          <widget class="QRadioButton" name="rb_ovrig_lm_egenurl">
           <property name="sizePolicy">
@@ -178,6 +199,20 @@
           </property>
           <property name="text">
            <string>Egen URL:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="line_edit_ovrig_lm_egenurl"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <item>
+         <widget class="QPushButton" name="pb_ovrig_access">
+          <property name="text">
+           <string>Ange åtkomstnycklar</string>
           </property>
          </widget>
         </item>

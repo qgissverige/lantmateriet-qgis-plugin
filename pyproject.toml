@@ -1,0 +1,16 @@
+[project]
+name = "lantmateriet-qgis"
+version = "0.1.0"
+description = "Convenient connection to several of Lantmäteriet's services"
+readme = "README.md"
+
+[tool.ruff]
+target-version = "py39"
+
+[tool.ruff.lint]
+extend-select = ["I"]
+
+[tool.qgis-plugin-ci]
+plugin_path = "lantmateriet"
+project_slug = "30085743-qgis_lantmateriet_tjanster"
+github_organization_slug = "sweco-se"

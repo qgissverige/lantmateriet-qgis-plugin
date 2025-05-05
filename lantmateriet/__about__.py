@@ -1,8 +1,8 @@
 #! python3  # noqa: E265
 
 """
-    Metadata about the package to easily retrieve informations about it.
-    See: https://packaging.python.org/guides/single-sourcing-package-version/
+Metadata about the package to easily retrieve informations about it.
+See: https://packaging.python.org/guides/single-sourcing-package-version/
 """
 
 # ############################################################################
@@ -63,7 +63,9 @@ __plugin_md__: dict = plugin_metadata_as_dict()
 __author__: str = __plugin_md__.get("general").get("author")
 __copyright__: str = "2025 - {0}, {1}".format(date.today().year, __author__)
 __email__: str = __plugin_md__.get("general").get("email")
-__icon_path__: Path = DIR_PLUGIN_ROOT.resolve() / __plugin_md__.get("general").get("icon")
+__icon_path__: Path = DIR_PLUGIN_ROOT.resolve() / __plugin_md__.get("general").get(
+    "icon"
+)
 __keywords__: list = [
     t.strip() for t in __plugin_md__.get("general").get("repository").split("tags")
 ]

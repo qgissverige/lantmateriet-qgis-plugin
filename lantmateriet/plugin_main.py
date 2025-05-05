@@ -24,8 +24,6 @@ from lantmateriet.__about__ import (
 )
 from lantmateriet.gui.dlg_settings import PlgOptionsFactory
 
-from lantmateriet.toolbelt import PlgLogger
-
 # ############################################################################
 # ########## Classes ###############
 # ##################################
@@ -40,8 +38,6 @@ class LantmaterietPlugin:
         :type iface: QgsInterface
         """
         self.iface = iface
-        self.log = PlgLogger().log
-        
 
         # translation
         # initialize the locale
@@ -49,9 +45,11 @@ class LantmaterietPlugin:
             0:2
         ]
         locale_path: Path = (
-            DIR_PLUGIN_ROOT / "resources" / "i18n" / f"{__title__.lower()}_{self.locale}.qm"
+            DIR_PLUGIN_ROOT
+            / "resources"
+            / "i18n"
+            / f"{__title__.lower()}_{self.locale}.qm"
         )
-        self.log(message=f"Translation: {self.locale}, {locale_path}", log_level=4)
         if locale_path.exists():
             self.translator = QTranslator()
             self.translator.load(str(locale_path.resolve()))
@@ -141,21 +139,3 @@ class LantmaterietPlugin:
         # remove actions
         del self.action_settings
         del self.action_help
-
-    def run(self):
-        """Main process.
-
-        :raises Exception: if there is no item in the feed
-        """
-        try:
-            self.log(
-                message=self.tr("Everything ran OK."),
-                log_level=3,
-                push=False,
-            )
-        except Exception as err:
-            self.log(
-                message=self.tr("Houston, we've got a problem: {}".format(err)),
-                log_level=2,
-                push=True,
-            )

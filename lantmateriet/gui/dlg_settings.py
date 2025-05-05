@@ -151,57 +151,38 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
             )
             return
 
-        # TODO: felhantering, om t.ex. autentisering saknas borde det inte gå att spara
-        """if not lm_ovr_authcfg or lm_ngp_authcfg:
-            # If no auth we can not configure connections
-            return"""
-
-        if s.ngp == "production":
-            ngp_baseurl = URLConfig.LM_PROD_URL
-        elif s.ngp == "verification":
-            ngp_baseurl = URLConfig.LM_VER_URL
-        else:
-            ngp_baseurl = s.ngp
-
-        if s.ovrig == "production":
-            ovrig_baseurl = URLConfig.LM_PROD_URL
-        elif s.ovrig == "verification":
-            ovrig_baseurl = URLConfig.LM_VER_URL
-        else:
-            ovrig_baseurl = s.ovrig
-
         stac_connections: dict[str, tuple[str, str]] = dict()
         oapif_connections: dict[str, tuple[str, str]] = dict()
         if s.ngp_enabled:
             stac_connections["NGP Detaljplan"] = (
-                ngp_baseurl + URLConfig.NGP_STAC_DETALJPLAN,
+                s.ngp_url + URLConfig.NGP_STAC_DETALJPLAN,
                 s.ngp_authcfg,
             )
             stac_connections["NGP Byggnad"] = (
-                ngp_baseurl + URLConfig.NGP_STAC_BYGGNAD,
+                s.ngp_url + URLConfig.NGP_STAC_BYGGNAD,
                 s.ngp_authcfg,
             )
             stac_connections["NGP Kulturhistorisk lämning"] = (
-                ngp_baseurl + URLConfig.NGP_STAC_KULTURHISTORISK_LAMNING,
+                s.ngp_url + URLConfig.NGP_STAC_KULTURHISTORISK_LAMNING,
                 s.ngp_authcfg,
             )
             stac_connections["NGP Gräns för fjällnära skog"] = (
-                ngp_baseurl + URLConfig.NGP_STAC_GRANS_FOR_FJALLNARA_SKOG,
+                s.ngp_url + URLConfig.NGP_STAC_GRANS_FOR_FJALLNARA_SKOG,
                 s.ngp_authcfg,
             )
         if s.ovrig_enabled and s.ortofoto_nedladdning_enabled:
             stac_connections["Ortofoton Nedladdning"] = (
-                ovrig_baseurl + URLConfig.LM_STAC_ORTO_NEDLADD,
+                s.ovrig_url + URLConfig.LM_STAC_ORTO_NEDLADD,
                 s.ovrig_authcfg,
             )
         if s.ovrig_enabled and s.hojdgrid_nedladdning_enabled:
             stac_connections["Höjdgrid Nedladdning"] = (
-                ovrig_baseurl + URLConfig.LM_STAC_HOJDGRID_NEDLADD,
+                s.ovrig_url + URLConfig.LM_STAC_HOJDGRID_NEDLADD,
                 s.ovrig_authcfg,
             )
         if s.ovrig_enabled and s.fastighetsindelning_direkt_enabled:
             oapif_connections["Fastighetsindelning Direkt"] = (
-                ovrig_baseurl + URLConfig.LM_OAPIF_FASTIGHETSINDELNING_DIREKT,
+                s.ovrig_url + URLConfig.LM_OAPIF_FASTIGHETSINDELNING_DIREKT,
                 s.ovrig_authcfg,
             )
 

@@ -3,6 +3,8 @@ from typing import Literal, Self
 
 from qgis._core import QgsSettings
 
+from lantmateriet.config import URLConfig
+
 
 @dataclass
 class Settings:
@@ -21,6 +23,24 @@ class Settings:
     gemensamhetsanlaggning_direkt_enabled: bool = False
     ortofoto_nedladdning_enabled: bool = False
     hojdgrid_nedladdning_enabled: bool = False
+
+    @property
+    def ngp_url(self) -> str:
+        if self.ngp == "production":
+            return URLConfig.LM_PROD_URL
+        elif self.ngp == "verification":
+            return URLConfig.LM_VER_URL
+        else:
+            return self.ngp
+
+    @property
+    def ovrig_url(self) -> str:
+        if self.ovrig == "production":
+            return URLConfig.LM_PROD_URL
+        elif self.ovrig == "verification":
+            return URLConfig.LM_VER_URL
+        else:
+            return self.ovrig
 
     @classmethod
     def load_from_settings(cls) -> Self:

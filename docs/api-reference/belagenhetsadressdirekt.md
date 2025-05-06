@@ -5,7 +5,7 @@ search:
 
 # Belägenhetsadress Direkt
 
-::: lantmateriet.core.clients
+::: lantmateriet_qgis.core.clients
     options:
       members: [BelagenhetsadressDirektClient]
       show_root_toc_entry: false
@@ -17,7 +17,7 @@ search:
 
 ## Data Types
 
-::: lantmateriet.core.clients.belagenhetsadressdirekt
+::: lantmateriet_qgis.core.clients.belagenhetsadressdirekt
     options:
       show_root_toc_entry: false
       show_bases: false

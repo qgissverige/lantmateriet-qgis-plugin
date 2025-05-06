@@ -11,6 +11,6 @@ target-version = "py39"
 extend-select = ["I"]
 
 [tool.qgis-plugin-ci]
-plugin_path = "lantmateriet"
-project_slug = "30085743-qgis_lantmateriet_tjanster"
-github_organization_slug = "sweco-se"
+plugin_path = "lantmateriet_qgis"
+project_slug = "lantmateriet-qgis-plugin"
+github_organization_slug = "qgissverige"

@@ -1,6 +1,6 @@
 # CQL2 Helpers
 
-::: lantmateriet.core.util.cql2
+::: lantmateriet_qgis.core.util.cql2
     options:
       show_root_toc_entry: false
       separate_signature: true

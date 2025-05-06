@@ -23,4 +23,4 @@ Klienter finns för följande APIer:
 ## CQL2-stöd
 
 Vid kommunikation med OGC API Features-baserade APIer behöver man ofta bygga CQL2-frågor för att göra
-mer avancerad filtrering. Funktionerna i [`lantmateriet.core.cql2`](cql2.md)-modulen kan hjälpa till med detta.
+mer avancerad filtrering. Funktionerna i [`lantmateriet_qgis.core.cql2`](cql2.md)-modulen kan hjälpa till med detta.

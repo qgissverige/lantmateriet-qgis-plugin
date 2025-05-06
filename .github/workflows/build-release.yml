@@ -7,9 +7,9 @@ on:
     paths:
       - .github/workflows/build-release.yml
       - 'docs/**/*'
-      - "lantmateriet/**/*.py"
-      - "lantmateriet/metadata.txt"
-      - "lantmateriet/resources/**/*"
+      - "lantmateriet_qgis/**/*.py"
+      - "lantmateriet_qgis/metadata.txt"
+      - "lantmateriet_qgis/resources/**/*"
     tags: 
       - "*"
 
@@ -31,15 +31,15 @@ jobs:
           sudo apt install qt5-qmake qttools5-dev-tools
 
       - name: Update translations
-        run: uvx --with-requirements requirements/packaging.txt --from pyqt5-tools --python 3.11 pylupdate5 -noobsolete -verbose lantmateriet/resources/i18n/plugin_translation.pro
+        run: uvx --with-requirements requirements/packaging.txt --from pyqt5-tools --python 3.11 pylupdate5 -noobsolete -verbose lantmateriet_qgis/resources/i18n/plugin_translation.pro
 
       - name: Compile translations
-        run: lrelease lantmateriet/resources/i18n/*.ts
+        run: lrelease lantmateriet_qgis/resources/i18n/*.ts
 
       - uses: actions/upload-artifact@v4
         with:
           name: translations-build
-          path: lantmateriet/**/*.qm
+          path: lantmateriet_qgis/**/*.qm
           if-no-files-found: error
 
   # -- NO TAGS ----------------------------------------------------------------------
@@ -61,22 +61,22 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: translations-build
-          path: lantmateriet
+          path: lantmateriet_qgis
       - name: Amend gitignore to include compiled translations and add it to tracked files
         run: |
           # include compiled translations
           sed -i "s|^*.qm.*| |" .gitignore
 
           # git add full project
-          git add lantmateriet/
+          git add lantmateriet_qgis/
 
       - name: Package the latest version
         run: uvx --with-requirements requirements/packaging.txt --python 3.11 qgis-plugin-ci package latest --allow-uncommitted-changes
 
       - uses: actions/upload-artifact@v4
         with:
-          name: lantmateriet-latest
-          path: lantmateriet.*.zip
+          name: lantmateriet_qgis-latest
+          path: lantmateriet_qgis.*.zip
           if-no-files-found: error
 
   # -- ONLY TAGS ----------------------------------------------------------------------
@@ -100,7 +100,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: translations-build
-          path: lantmateriet
+          path: lantmateriet_qgis
 
       - name: Amend gitignore to include compiled translations and add it to tracked files
         run: |
@@ -108,7 +108,7 @@ jobs:
           sed -i "s|^*.qm.*| |" .gitignore
 
           # git add full project
-          git add lantmateriet/
+          git add lantmateriet_qgis/
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2

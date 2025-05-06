@@ -21,7 +21,7 @@
             "label": "Translation Update",
             "type": "shell",
             "linux": {
-                "command": "pylupdate5 -verbose lantmateriet/resources/i18n/plugin_translation.pro"
+                "command": "pylupdate5 -verbose lantmateriet_qgis/resources/i18n/plugin_translation.pro"
             },
             "problemMatcher": []
         },
@@ -29,7 +29,7 @@
             "label": "Translation Compile",
             "type": "shell",
             "linux": {
-                "command": "lrelease lantmateriet/resources/i18n/*.ts "
+                "command": "lrelease lantmateriet_qgis/resources/i18n/*.ts "
             },
             "problemMatcher": []
         }

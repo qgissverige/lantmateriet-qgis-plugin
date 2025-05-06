@@ -7,8 +7,8 @@ on:
     paths:
       - '.github/workflows/documentation.yml'
       - 'docs/**/*'
-      - "lantmateriet/**/*.py"
-      - "lantmateriet/metadata.txt"
+      - "lantmateriet_qgis/**/*.py"
+      - "lantmateriet_qgis/metadata.txt"
       - 'requirements/documentation.txt'
       - '*.md'
     tags: 
@@ -20,8 +20,8 @@ on:
     paths:
       - '.github/workflows/documentation.yml'
       - 'docs/**/*'
-      - "lantmateriet/**/*.py"
-      - "lantmateriet/metadata.txt"
+      - "lantmateriet_qgis/**/*.py"
+      - "lantmateriet_qgis/metadata.txt"
       - 'requirements/documentation.txt'
       - '*.md'
 

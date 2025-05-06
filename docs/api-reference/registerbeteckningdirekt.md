@@ -1,6 +1,6 @@
 # Registerbeteckning Direkt
 
-::: lantmateriet.core.clients
+::: lantmateriet_qgis.core.clients
     options:
       members: [RegisterbeteckningDirektClient]
       show_root_toc_entry: false
@@ -12,7 +12,7 @@
 
 ## Data Types
 
-::: lantmateriet.core.clients.registerbeteckningdirekt
+::: lantmateriet_qgis.core.clients.registerbeteckningdirekt
     options:
       show_root_toc_entry: false
       show_bases: false

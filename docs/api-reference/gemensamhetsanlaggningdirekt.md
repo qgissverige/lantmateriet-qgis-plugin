@@ -1,6 +1,6 @@
 # Gemensamhetsanläggning Direkt
 
-::: lantmateriet.core.clients
+::: lantmateriet_qgis.core.clients
     options:
       members: [GemensamhetsanlaggningDirektClient]
       show_root_toc_entry: false
@@ -12,7 +12,7 @@
 
 ## Data Types
 
-::: lantmateriet.core.clients.gemensamhetsanlaggningdirekt
+::: lantmateriet_qgis.core.clients.gemensamhetsanlaggningdirekt
     options:
       show_root_toc_entry: false
       show_bases: false

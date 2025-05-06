@@ -15,7 +15,7 @@ from pathlib import Path
 
 from packaging.version import parse
 
-from lantmateriet import __about__
+from lantmateriet_qgis import __about__
 
 
 class TestPluginMetadata(unittest.TestCase):

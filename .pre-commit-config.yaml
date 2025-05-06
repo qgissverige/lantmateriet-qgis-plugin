@@ -34,7 +34,7 @@ repos:
     rev: 6.0.0
     hooks:
       - id: flake8
-        files: ^lantmateriet/.*\.py$
+        files: ^lantmateriet_qgis/.*\.py$
         additional_dependencies:
           - flake8-qgis<2
         args:

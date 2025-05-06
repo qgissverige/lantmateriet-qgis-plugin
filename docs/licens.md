@@ -6,4 +6,6 @@ hide:
   - toc
 ---
 
---8<-- "LICENSE.md"
+{%
+    include-markdown "../LICENSE.md"
+%}

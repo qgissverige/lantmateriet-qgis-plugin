@@ -5,7 +5,7 @@ site_description: Smidig anslutning till Lantmäteriets tjänster från QGIS
 repo_url: https://github.com/qgissverige/lantmateriet-qgis-plugin
 theme:
   name: material
-  language: en
+  language: sv
   features:
     - content.action.edit
     - navigation.footer
@@ -26,14 +26,13 @@ plugins:
           inventories:
           - https://docs.python.org/3/objects.inv
           - https://docs.qgis.org/latest/en/objects.inv
+  - include-markdown
   - social
 markdown_extensions:
   - admonition
   - attr_list
   - pymdownx.details
   - pymdownx.superfences
-  - pymdownx.snippets:
-      base_path: !relative $config_dir
   - pymdownx.keys
   - md_in_html
   - toc:

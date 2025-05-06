@@ -1,22 +1,15 @@
-# CHANGELOG
+# Ändringslogg
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
+Detta format är baserat på [Keep a Changelog](https://keepachangelog.com/) och detta projekt använder sig av [Semantic Versioning](https://semver.org/).
 
-<!--
+## Nästa version (0.1.0 - 2025-xx-xx)
 
-Unreleased
+* Förhandsrelease till testare
 
-## version_tag - YYYY-DD-mm
+### Nytt
 
-### Added
-
-### Changed
-
-### Removed
-
--->
-
-## 0.1.0 - 2025-03-10
-
-- First release
-- Generated with the [QGIS Plugins templater](https://oslandia.gitlab.io/qgis/template-qgis-plugin/)
+* Sökfunktion för adresser, fastigheter, samfälligheter och gemensamhetsanläggningar
+* Verktyg för nedladdning av adresser respektive fastigheter och samfälligheter
+* Funktioner för användning i uttryck för fastighets- och adressinformation
+* Smidig konfiguration av anslutning till Lantmäteriet
+* Enkelt att lägga till tjänster från Lantmäteriet som datakällor

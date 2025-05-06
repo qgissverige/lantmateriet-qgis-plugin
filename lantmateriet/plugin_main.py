@@ -1,7 +1,7 @@
 #! python3  # noqa: E265
 
 """
-    Main plugin module.
+Main plugin module.
 """
 
 # standard
@@ -24,6 +24,8 @@ from lantmateriet.__about__ import (
     __title__,
     __uri_homepage__,
 )
+from lantmateriet.core.locators.address import AddressLocatorFilter
+from lantmateriet.core.locators.property import PropertyLocatorFilter
 from lantmateriet.processing import LantmaterietProvider
 from lantmateriet.gui.dlg_settings import PlgOptionsFactory
 
@@ -90,8 +92,6 @@ class LantmaterietPlugin:
         self.iface.addPluginToMenu(__title__, self.action_settings)
         self.iface.addPluginToMenu(__title__, self.action_help)
 
-        
-
         # -- Help menu
 
         # documentation
@@ -108,6 +108,13 @@ class LantmaterietPlugin:
         self.iface.pluginHelpMenu().addAction(
             self.action_help_plugin_menu_documentation
         )
+
+        self.locators = [
+            PropertyLocatorFilter(self.iface),
+            AddressLocatorFilter(self.iface),
+        ]
+        for locator in self.locators:
+            self.iface.registerLocatorFilter(locator)
 
         self.provider = LantmaterietProvider()
         QgsApplication.processingRegistry().addProvider(self.provider)
@@ -131,6 +138,11 @@ class LantmaterietPlugin:
 
         # -- Clean up preferences panel in QGIS settings
         self.iface.unregisterOptionsWidgetFactory(self.options_factory)
+
+        for locator in self.locators:
+            self.iface.deregisterLocatorFilter(locator)
+            del locator
+        self.locators = []
 
         QgsApplication.processingRegistry().removeProvider(self.provider)
         self.provider = None

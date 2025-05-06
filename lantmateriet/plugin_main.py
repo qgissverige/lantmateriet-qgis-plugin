@@ -22,6 +22,7 @@ from lantmateriet.__about__ import (
     __title__,
     __uri_homepage__,
 )
+from lantmateriet.processing import LantmaterietProvider
 from lantmateriet.gui.dlg_settings import PlgOptionsFactory
 
 # ############################################################################
@@ -106,7 +107,8 @@ class LantmaterietPlugin:
             self.action_help_plugin_menu_documentation
         )
 
-    
+        self.provider = LantmaterietProvider()
+        QgsApplication.processingRegistry().addProvider(self.provider)
 
     def tr(self, message: str) -> str:
         """Get the translation for a string using Qt translation API.
@@ -128,7 +130,8 @@ class LantmaterietPlugin:
         # -- Clean up preferences panel in QGIS settings
         self.iface.unregisterOptionsWidgetFactory(self.options_factory)
 
-        
+        QgsApplication.processingRegistry().removeProvider(self.provider)
+        self.provider = None
 
         # remove from QGIS help/extensions menu
         if self.action_help_plugin_menu_documentation:

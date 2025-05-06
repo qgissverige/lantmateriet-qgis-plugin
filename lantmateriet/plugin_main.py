@@ -15,6 +15,8 @@ from qgis.PyQt.QtCore import QCoreApplication, QLocale, QTranslator, QUrl
 from qgis.PyQt.QtGui import QDesktopServices, QIcon
 from qgis.PyQt.QtWidgets import QAction
 
+import lantmateriet.core.functions  # noqa
+
 # project
 from lantmateriet.__about__ import (
     DIR_PLUGIN_ROOT,

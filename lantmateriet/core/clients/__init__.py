@@ -7,9 +7,13 @@ from lantmateriet.core.clients.fastighetochsamfallighetdirekt import (
 from lantmateriet.core.clients.fastighetsindelningdirekt import (
     FastighetsindelningDirektClient,
 )
+from lantmateriet.core.clients.registerbeteckningdirekt import (
+    RegisterbeteckningDirektClient,
+)
 
 __all__ = [
     "BelagenhetsadressDirektClient",
     "FastighetOchSamfallighetDirektClient",
     "FastighetsindelningDirektClient",
+    "RegisterbeteckningDirektClient",
 ]

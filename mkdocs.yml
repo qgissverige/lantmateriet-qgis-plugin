@@ -1,0 +1,83 @@
+site_name: QGIS-plugin för Lantmäteriets tjänster
+site_url: https://qgisservice.github.io/lantmateriet-qgis-plugin
+copyright: "&copy; QGIS Sverige"
+site_description: Smidig anslutning till Lantmäteriets tjänster från QGIS
+repo_url: https://github.com/qgissverige/lantmateriet-qgis-plugin
+theme:
+  name: material
+  language: en
+  features:
+    - content.action.edit
+    - navigation.footer
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+  icon:
+    repo: fontawesome/brands/github
+  palette:
+    primary: custom
+    accent: custom
+plugins:
+  - privacy
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          inventories:
+          - https://docs.python.org/3/objects.inv
+          - https://docs.qgis.org/latest/en/objects.inv
+  - social
+markdown_extensions:
+  - admonition
+  - attr_list
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.snippets:
+      base_path: !relative $config_dir
+  - pymdownx.keys
+  - md_in_html
+  - toc:
+      permalink: true
+      toc_depth: 4
+extra_css:
+  - stylesheets/trueno.css
+  - stylesheets/customization.css
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/qgissverige
+  status:
+    idea: Idé
+nav:
+  - Hem:
+    - index.md
+    - bidragsgivare.md
+    - Ändringslogg: changelog.md
+    - licens.md
+  - Användning:
+    - Kom igång:
+      - usage/installation.md
+      - usage/installningar.md
+    - Funktioner:
+      - usage/sokning.md
+      - Algoritmer:
+        - usage/algoritmer/index.md
+        - Nedladdning:
+          - usage/algoritmer/download-addresses-bounding.md
+          - usage/algoritmer/download-addresses-polygons.md
+          - usage/algoritmer/download-properties-bounding.md
+          - usage/algoritmer/download-properties-polygons.md
+      - usage/uttryck.md
+  - Utveckling:
+    - development/contribute.md
+    - development/packaging.md
+    - development/documentation.md
+  - API-referens:
+      - api-reference/index.md
+      - api-reference/cql2.md
+      - Klienter:
+        - api-reference/belagenhetsadressdirekt.md
+        - api-reference/fastighetochsamfallighetdirekt.md
+        - api-reference/fastighetsindelningdirekt.md
+        - api-reference/gemensamhetsanlaggningdirekt.md
+        - api-reference/registerbeteckningdirekt.md

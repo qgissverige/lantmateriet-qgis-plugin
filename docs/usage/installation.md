@@ -1,19 +1,23 @@
 # Installation
 
-## Stable version (recomended)
+## Stabil version (rekommenderad)
 
-This plugin is published on the official QGIS plugins repository: <https://plugins.qgis.org/plugins/lantmateriet/>.
+Detta plugin finns i officiella QGIS-pluginkatalogen: https://plugins.qgis.org/plugins/lantmateriet/
 
-## Beta versions released
+Du kan installera det direkt från QGIS-pluginhanteraren:
 
-Enable experimental extensions in the QGIS plugins manager settings panel.
+TODO: screenshot
 
-## Earlier development version
+## Betaversioner
 
-If you define yourself as early adopter or a tester and can't wait for the release, the plugin is automatically packaged for each commit to main, so you can use this address as repository URL in your QGIS extensions manager settings:
+Betaversioner kan installeras genom att aktivera experimentella tillägg i QGIS-pluginhanterarens inställningar.
+
+## Utvecklingsversioner
+
+Alla kodändringar i main-branchen byggs automatiskt. Genom att lägga till följande URL i QGIS-pluginhanterarens inställningar kan du installera den senaste utvecklingsversionen:
 
 ```url
-https://github.com/sweco-se/30085743-qgis_lantmateriet_tjanster/plugins.xml
+https://github.com/qgissverige/lantmateriet-qgis-plugin/plugins.xml
 ```
 
-Be careful, this version can be unstable.
+Men kom ihåg att dessa versioner riskerar att ha stora buggar och vara allmänt instabila.

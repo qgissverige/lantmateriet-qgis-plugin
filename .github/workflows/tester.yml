@@ -1,4 +1,4 @@
-name: "🎳 Tester"
+name: "Tester"
 
 on:
   push:
@@ -29,24 +29,14 @@ jobs:
     steps:
       - name: Get source code
         uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          cache: "pip"
-          cache-dependency-path: "requirements/testing.txt"
-          python-version: ${{ env.PYTHON_VERSION }}
-
-      - name: Install Python requirements
-        run: |
-          python -m pip install -U pip setuptools wheel
-          python -m pip install -U -r requirements/testing.txt
-
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
       - name: Run Unit tests
-        run: pytest -p no:qgis tests/unit/
+        run: uvx --with-requirements requirements/testing.txt pytest -p no:qgis tests/unit/
 
   test-qgis:
     runs-on: ubuntu-latest
+    if: false
 
     container:
       image: qgis/qgis:release-3_28

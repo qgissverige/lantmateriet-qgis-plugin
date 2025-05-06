@@ -1,32 +1,24 @@
 #! python3  # noqa E265
 
 """
-    Usage from the repo root folder:
+Usage from the repo root folder:
 
-    .. code-block:: bash
-        # for whole tests
-        python -m unittest tests.unit.test_plg_metadata
-        # for specific test
-        python -m unittest tests.unit.test_plg_metadata.TestPluginMetadata.test_version_semver
+.. code-block:: bash
+    # for whole tests
+    python -m unittest tests.unit.test_plg_metadata
+    # for specific test
+    python -m unittest tests.unit.test_plg_metadata.TestPluginMetadata.test_version_semver
 """
 
-# standard library
 import unittest
 from pathlib import Path
 
-# 3rd party
 from packaging.version import parse
 
-# project
 from lantmateriet import __about__
-
-# ############################################################################
-# ########## Classes #############
-# ################################
 
 
 class TestPluginMetadata(unittest.TestCase):
-
     """Test about module"""
 
     def test_metadata_types(self):

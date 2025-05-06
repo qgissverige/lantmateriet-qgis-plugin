@@ -13,6 +13,7 @@ documentation:
     - any-glob-to-any-file:
         - docs/**
         - requirements/documentation.txt
+        - README.md
 
 enhancement:
   - head-branch:
@@ -21,35 +22,18 @@ enhancement:
     - ^improve
     - improve
 
-packaging:
-  - head-branch:
-    - ^packaging
-    - packaging
-  - changed-files:
-    - any-glob-to-any-file:
-      - requirements/packaging.txt
-      - setup.py
-
 quality:
   - changed-files:
     - any-glob-to-any-file:
       - tests/**/*
 
-
 tooling:
-  - head-branch:
-    - ^tooling
-    - tooling
   - changed-files:
     - any-glob-to-any-file:
         - .pre-commit-config.yaml
-        - setup.cfg
-        
+        - .github/**/*
 
-UI:
-  - head-branch:
-    - ^ui
-    - ui
+ui:
   - changed-files:
     - any-glob-to-any-file:
         - lantmateriet/**/*.ui

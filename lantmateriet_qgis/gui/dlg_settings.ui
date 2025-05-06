@@ -243,7 +243,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="button_validate">
      <property name="text">
       <string>Verifiera konfiguration</string>
      </property>

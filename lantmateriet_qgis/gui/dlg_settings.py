@@ -17,6 +17,10 @@ from lantmateriet_qgis.__about__ import (
 )
 from lantmateriet_qgis.config import URLConfig
 from lantmateriet_qgis.core.settings import Settings
+from lantmateriet_qgis.core.util.oauth_config import (
+    load_oauth_config,
+    store_oauth_config,
+)
 from lantmateriet_qgis.gui.dlg_access import CreateLMOAuthConfigurationDialog
 
 FORM_CLASS, _ = uic.loadUiType(
@@ -61,6 +65,7 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         self.button_ovrig_auth.clicked.connect(self.enter_keys_ovrig)
 
         self.button_add_connections.clicked.connect(self.add_to_connections)
+        self.button_validate.clicked.connect(self.validate)
 
         self.load_settings()
 
@@ -90,11 +95,7 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
             self.auth_ovrig.setConfigId("")
             self.auth_ovrig.setConfigId(dlg.new_auth_cfg_id)
 
-    def apply(self):
-        """Called to permanently apply the settings shown in the options page (e.g. \
-        save them to QgsSettings objects). This is usually called when the options \
-        dialog is accepted."""
-
+    def _to_settings(self) -> Settings:
         s = Settings()
 
         s.ngp_enabled = self.group_box_ngp.isChecked()
@@ -131,15 +132,69 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         s.ortofoto_nedladdning_enabled = self.button_ortofoto_nedladdning.isChecked()
         s.hojdgrid_nedladdning_enabled = self.button_hojdgrid_nedladdning.isChecked()
 
+        return s
+
+    def apply(self):
+        """Called to permanently apply the settings shown in the options page (e.g. \
+        save them to QgsSettings objects). This is usually called when the options \
+        dialog is accepted."""
+
+        s = self._to_settings()
         s.store_to_settings()
 
-    def is_valid(self, settings: Settings) -> bool:
-        pass
+        if (
+            s.ovrig_enabled
+            and s.ovrig in ("production", "verification")
+            and s.ovrig_authcfg
+        ):
+            config = load_oauth_config(s.ovrig_authcfg)
+            required_scopes = []
+            if s.fastighetsindelning_direkt_enabled:
+                required_scopes.append("ogc-features:fastighetsindelning.read")
+            if s.fastighet_direkt_enabled:
+                required_scopes.append("fastighetochsamfallighet_direkt_v31_read")
+            if s.registerbeteckning_direkt_enabled:
+                required_scopes.append("registerbeteckning_direkt_v5_read")
+            if s.gemensamhetsanlaggning_direkt_enabled:
+                required_scopes.append("gemensamhetsanlaggning_direkt_v21_read")
+            if s.belagenhetsadress_direkt_enabled:
+                required_scopes.append("belagenhetsadress_direkt_v42_read")
+            existing_scopes = config["scope"].split(" ")
+            missing_scopes = set(required_scopes) - set(existing_scopes)
+            if missing_scopes:
+                res = QMessageBox.warning(
+                    self,
+                    self.tr("Lägg till scopes"),
+                    self.tr(
+                        "Följande scopes saknas i autentisering: {0}. Vill du lägga till dem?"
+                    ).format(", ".join(missing_scopes)),
+                    QMessageBox.StandardButton.Yes
+                    | QMessageBox.StandardButton.No
+                    | QMessageBox.StandardButton.Cancel,
+                )
+                if res == QMessageBox.StandardButton.Yes:
+                    config["scope"] = " ".join(existing_scopes + list(missing_scopes))
+                    store_oauth_config(s.ovrig_authcfg, config)
+
+    def validate(self):
+        s = self._to_settings()
+        errors = s.validate()
+        if len(errors) > 0:
+            msg = self.tr("Följande fel har hittats i konfigurationen:") + "\n"
+            for error in errors:
+                msg += "\n• " + error
+            QMessageBox.warning(self, self.tr("Fel i konfigurationen"), msg)
+        else:
+            QMessageBox.information(
+                self,
+                self.tr("Konfigurationen är korrekt"),
+                self.tr("Konfigurationen är korrekt."),
+            )
 
     def add_to_connections(self):
         """Create connection settings, base urls, service names"""
 
-        s = Settings.load_from_settings()
+        s = self._to_settings()
         if len(s.validate()) > 0:
             QMessageBox.warning(
                 self,

@@ -1,8 +1,10 @@
 import json
 import os
 
-from qgis.core import QgsApplication, QgsAuthMethodConfig
+from qgis.core import Qgis, QgsApplication, QgsAuthManager, QgsAuthMethodConfig
 from qgis.PyQt import QtWidgets, uic
+
+from lantmateriet_qgis.core.util.oauth_config import GrantFlow
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(os.path.dirname(__file__), "dlg_access.ui"))
 
@@ -26,7 +28,7 @@ class CreateLMOAuthConfigurationDialog(QtWidgets.QDialog, FORM_CLASS):
         client_id = self.line_edit_client_id.text()
         client_secret = self.line_edit_client_secret.text()
 
-        auth_manager = QgsApplication.authManager()
+        auth_manager: QgsAuthManager = QgsApplication.authManager()
         auth_config = QgsAuthMethodConfig()
         auth_config.setName(f"LM {self.name_base} ({client_id})")
         auth_config.setMethod("OAuth2")  # Set the authentication method type
@@ -38,7 +40,9 @@ class CreateLMOAuthConfigurationDialog(QtWidgets.QDialog, FORM_CLASS):
                         clientSecret=client_secret,
                         requestUrl=self.base_url + "authorize",
                         tokenUrl=self.base_url + "token",
-                        grantFlow=4,
+                        grantFlow=GrantFlow.CLIENT_CREDENTIALS
+                        if Qgis.versionInt() >= 34300
+                        else GrantFlow.AUTH_CODE_PKCE,
                     )
                 )
             )
@@ -48,7 +52,3 @@ class CreateLMOAuthConfigurationDialog(QtWidgets.QDialog, FORM_CLASS):
         self.new_auth_cfg_id = auth_config.id()
 
         super().accept()
-
-    @classmethod
-    def add_scope_to(cls, authcfg: str, scope: str):
-        pass

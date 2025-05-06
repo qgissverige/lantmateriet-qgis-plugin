@@ -1,9 +1,10 @@
 from dataclasses import dataclass
 from typing import Literal, Self
 
-from qgis._core import QgsSettings
+from qgis.core import QgsApplication, QgsAuthManager, QgsSettings, QgsStringUtils
 
 from lantmateriet_qgis.config import URLConfig
+from lantmateriet_qgis.core.util.oauth_config import GrantFlow, load_oauth_config
 
 
 @dataclass
@@ -108,4 +109,108 @@ class Settings:
         )
 
     def validate(self) -> list[str]:
-        return []
+        errors = []
+
+        auth_manager: QgsAuthManager = QgsApplication.authManager()
+
+        if self.ngp_enabled:
+            if self.ngp not in ("production", "verification") and (
+                self.ngp is None or not QgsStringUtils.isUrl(self.ngp)
+            ):
+                errors.append(
+                    "Egen URL för Nationella geodataplattformen är inte giltig"
+                )
+
+            if self.ngp in ("production", "verification"):
+                if (
+                    not self.ngp_authcfg
+                    or self.ngp_authcfg not in auth_manager.configIds()
+                ):
+                    errors.append(
+                        "Autentisering för Nationella geodataplattformen saknas"
+                    )
+                else:
+                    if auth_manager.configAuthMethodKey(self.ngp_authcfg) != "OAuth2":
+                        errors.append(
+                            "Autentisering för Nationella geodataplattformen är inte giltig"
+                        )
+                    else:
+                        config = load_oauth_config(self.ngp_authcfg)
+                        if self.ngp == "production" and config["tokenUrl"] != (
+                            URLConfig.LM_PROD_AUTH_URL + "token"
+                        ):
+                            errors.append(
+                                "Token URL för Nationella geodataplattformen är inte giltig"
+                            )
+                        elif self.ngp == "verification" and config["tokenUrl"] != (
+                            URLConfig.LM_VER_AUTH_URL + "token"
+                        ):
+                            errors.append(
+                                "Token URL för Nationella geodataplattformen är inte giltig"
+                            )
+                        if config["grantFlow"] in (
+                            GrantFlow.AUTH_CODE,
+                            GrantFlow.AUTH_CODE_PKCE,
+                        ):
+                            if self.ngp == "production" and config["requestUrl"] != (
+                                URLConfig.LM_PROD_AUTH_URL + "authorize"
+                            ):
+                                errors.append(
+                                    "Token URL för Nationella geodataplattformen är inte giltig"
+                                )
+                            elif self.ngp == "verification" and config[
+                                "requestUrl"
+                            ] != (URLConfig.LM_VER_AUTH_URL + "authorize"):
+                                errors.append(
+                                    "Token URL för Nationella geodataplattformen är inte giltig"
+                                )
+
+        if self.ovrig_enabled:
+            if self.ovrig not in ("production", "verification") and (
+                self.ovrig is None or not QgsStringUtils.isUrl(self.ovrig)
+            ):
+                errors.append("Egen URL för Övriga tjänster är inte giltig")
+
+            if self.ovrig in ("production", "verification"):
+                if (
+                    not self.ovrig_authcfg
+                    or self.ovrig_authcfg not in auth_manager.configIds()
+                ):
+                    errors.append("Autentisering för Övriga tjänster saknas")
+                else:
+                    if auth_manager.configAuthMethodKey(self.ovrig_authcfg) != "OAuth2":
+                        errors.append(
+                            "Autentisering för Övriga tjänster är inte giltig"
+                        )
+                    else:
+                        config = load_oauth_config(self.ovrig_authcfg)
+                        if self.ovrig == "production" and config["tokenUrl"] != (
+                            URLConfig.LM_PROD_AUTH_URL + "token"
+                        ):
+                            errors.append(
+                                "Token URL för Nationella geodataplattformen är inte giltig"
+                            )
+                        elif self.ovrig == "verification" and config["tokenUrl"] != (
+                            URLConfig.LM_VER_AUTH_URL + "token"
+                        ):
+                            errors.append(
+                                "Token URL för Nationella geodataplattformen är inte giltig"
+                            )
+                        if config["grantFlow"] in (
+                            GrantFlow.AUTH_CODE,
+                            GrantFlow.AUTH_CODE_PKCE,
+                        ):
+                            if self.ovrig == "production" and config["requestUrl"] != (
+                                URLConfig.LM_PROD_AUTH_URL + "authorize"
+                            ):
+                                errors.append(
+                                    "Authorize URL för Övriga tjänster är inte giltig"
+                                )
+                            elif self.ovrig == "verification" and config[
+                                "requestUrl"
+                            ] != (URLConfig.LM_VER_AUTH_URL + "authorize"):
+                                errors.append(
+                                    "Authorize URL för Övriga tjänster är inte giltig"
+                                )
+
+        return errors

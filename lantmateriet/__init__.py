@@ -1,7 +1,7 @@
 #! python3  # noqa: E265
 
 # ----------------------------------------------------------
-# Copyright (C) 2015 Martin Dobias
+# Copyright (C) 2025 QGIS Sverige
 # ----------------------------------------------------------
 # Licensed under the terms of GNU GPL 2
 #

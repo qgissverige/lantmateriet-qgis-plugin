@@ -317,7 +317,7 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         self.button_hojdgrid_nedladdning.setChecked(s.hojdgrid_nedladdning_enabled)
 
 
-class PlgOptionsFactory(QgsOptionsWidgetFactory):
+class PluginOptionsWidgetFactory(QgsOptionsWidgetFactory):
     """Factory for options widget."""
 
     def __init__(self):

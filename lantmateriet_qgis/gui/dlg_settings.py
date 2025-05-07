@@ -31,8 +31,8 @@ FORM_CLASS, _ = uic.loadUiType(
 class UrlValidator(QValidator):
     def validate(self, input: str, pos: int):
         if QgsStringUtils.isUrl(input):
-            return QValidator.Acceptable
-        return QValidator.Intermediate
+            return QValidator.Acceptable, input, pos
+        return QValidator.Intermediate, input, pos
 
 
 def _auth_url(is_prod: bool, is_ver: bool) -> str | None:

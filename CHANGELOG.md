@@ -1,8 +1,8 @@
 # Ändringslogg
 
-Detta format är baserat på [Keep a Changelog](https://keepachangelog.com/) och detta projekt använder sig av [Semantic Versioning](https://semver.org/).
+Detta format är baserat på [Keep a Changelog](https://keepachangelog.com/sv/) och detta projekt använder sig av [Semantic Versioning](https://semver.org/).
 
-## Nästa version (0.1.0 - 2025-xx-xx)
+## 0.1.0 - 2025-05-07
 
 * Förhandsrelease till testare
 

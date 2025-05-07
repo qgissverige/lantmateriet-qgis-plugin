@@ -159,7 +159,7 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
                 required_scopes.append("gemensamhetsanlaggning_direkt_v21_read")
             if s.belagenhetsadress_direkt_enabled:
                 required_scopes.append("belagenhetsadress_direkt_v42_read")
-            existing_scopes = config["scope"].split(" ")
+            existing_scopes = config.get("scope", "").split(" ")
             missing_scopes = set(required_scopes) - set(existing_scopes)
             if missing_scopes:
                 res = QMessageBox.warning(

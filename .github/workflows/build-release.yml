@@ -4,13 +4,14 @@ on:
   push:
     branches:
       - main
+      - ci/*
     paths:
       - .github/workflows/build-release.yml
       - 'docs/**/*'
       - "lantmateriet_qgis/**/*.py"
       - "lantmateriet_qgis/metadata.txt"
       - "lantmateriet_qgis/resources/**/*"
-    tags: 
+    tags:
       - "*"
 
 jobs:
@@ -41,6 +42,7 @@ jobs:
           name: translations-build
           path: lantmateriet_qgis/**/*.qm
           if-no-files-found: error
+          retention-days: 5
 
   # -- NO TAGS ----------------------------------------------------------------------
   packaging:
@@ -73,16 +75,26 @@ jobs:
       - name: Package the latest version
         run: uvx --with-requirements requirements/packaging.txt --python 3.11 qgis-plugin-ci package latest --allow-uncommitted-changes
 
+      - name: Extract version from metadata
+        id: get_version
+        run: |
+          # Extract version from metadata.txt
+          version=$(grep -oP '(?<=^version=).*' lantmateriet_qgis/metadata.txt)
+          echo "VERSION=$version" >> $GITHUB_ENV
+      - name: Unzip contents
+        run: |
+          mv lantmateriet_qgis lantmateriet_qgis.backup
+          unzip lantmateriet_qgis.$VERSION.zip -d lantmateriet_qgis
       - uses: actions/upload-artifact@v4
         with:
-          name: lantmateriet_qgis-latest
-          path: lantmateriet_qgis.*.zip
+          name: lantmateriet_qgis.${{ env.VERSION }}
+          path: lantmateriet_qgis
           if-no-files-found: error
 
   # -- ONLY TAGS ----------------------------------------------------------------------
   release:
     name: "Release on tag"
-    runs-on: ubuntu-latest    
+    runs-on: ubuntu-latest
     permissions:
       contents: write
     needs: [translation]

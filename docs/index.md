@@ -9,13 +9,13 @@ Detta QGIS-plugin ger smidig åtkomst till flera av Lantmäteriets tjänster, t.
 
 <div align="center" markdown>
 
-[Installation](https://qgissverige.github.io/lantmateriet-qgis-plugin/usage/installation/) &bullet; [Användning](https://qgissverige.github.io/lantmateriet-qgis-plugin/usage/) &bullet; [Utveckling](https://qgissverige.github.io/lantmateriet-qgis-plugin/development/)
+[Snabbstart](usage/snabbstart.md) &bullet; [Användning](usage/index.md) &bullet; [Utveckling](development/contribute.md)
 
 </div>
 
 ## Funktioner
 
-* Sök efter adresser och fastigheter med hjälp av sökaren
-* Ladda ner data med hjälp av verktygslådan
-* Automatiskt skapa upp anslutningar till datakällor
-* Åtkomst till data från uttryck
+{%
+    include-markdown "usage/index.md"
+    start="# Användning"
+%}

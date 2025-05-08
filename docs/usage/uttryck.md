@@ -306,7 +306,9 @@ Sökning på beteckning utan kommunkod eller kommunnamn i beteckningen kan ge fa
 
 ### Svar
 
-#### För Fastighetsinformation Direkt
+Vilket svar som erhålles är beroende av vilka tjänster som är konfigurerade i [inställningarna](installningar.md).
+
+#### För Fastighetsindelning Direkt
 
 | Nyckel          | Beskrivning                 |
 |-----------------|-----------------------------|
@@ -322,6 +324,9 @@ Sökning på beteckning utan kommunkod eller kommunnamn i beteckningen kan ge fa
 | etikett         | Sträng                      |
 | beteckning      | Sträng                      |
 
+!!! note "Begränsningar i tjänsten Fastighetsindelning Direkt"
+    Tjänsten Fastighetsindelning Direkt är avgiftsfri, men innehåller i dagsläget ej 3D-fastigheter.
+
 #### För Fastighet och Samfällighet Direkt
 
 ### Exempel
@@ -335,6 +340,13 @@ Sökning på beteckning utan kommunkod eller kommunnamn i beteckningen kan ge fa
 ## `property_geometry(geometri | id | beteckning, [kommunkod])` { #property_geometry data-toc-label='property_geometry' }
 
 Hämtar geometrin för en fastighet eller samfällighet. Funktionen kan ta olika typer av argument.
+
+### Noteringar
+
+Majoriteten av fastigheter är redovisade som polygoner, men det finns såväl fastigheter som samfälligheter som istället är redovisade som linjer eller punkter.
+
+!!! note "Begränsningar i tjänsten Fastighetsindelning Direkt"
+    Tjänsten Fastighetsindelning Direkt är avgiftsfri, men innehåller i dagsläget ej 3D-fastigheter.
 
 ### Argument
 
@@ -398,8 +410,6 @@ Hämtar geometrin för fastigheten eller samfälligheten med en given beteckning
 ##### Noteringar
 
 Sökning på beteckning utan kommunkod eller kommunnamn i beteckningen kan ge fastigheter eller samfälligheter i fel del av landet.
-
-Majoriteten av fastigheter är redovisade som polygoner, men det finns såväl fastigheter som samfälligheter som istället är redovisade som linjer eller punkter.
 
 ### Exempel
 

@@ -2,7 +2,7 @@
 
 ## Stabil version (rekommenderad)
 
-Detta plugin finns i officiella QGIS-pluginkatalogen: https://plugins.qgis.org/plugins/lantmateriet_qgis/
+Detta plugin finns i officiella QGIS-pluginkatalogen: [https://plugins.qgis.org/plugins/lantmateriet_qgis/](https://plugins.qgis.org/plugins/lantmateriet_qgis/)
 
 Du kan installera det direkt från QGIS-pluginhanteraren:
 

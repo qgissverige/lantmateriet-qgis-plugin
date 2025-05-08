@@ -43,6 +43,9 @@ Följande tjänster behöver konfigureras under [inställningar](installningar.m
 | Fastigheter och Samfälligheter | Registerbeteckning Direkt & Fastighet och Samfällighet Direkt<br/>_eller_<br/>Registerbeteckning Direkt & Fastighetsindelning Direkt<br/>_eller_<br/>Fastighetsindelning Direkt |
 | Gemensamhetsanläggningar | Registerbeteckning Direkt & Gemensamhetsanläggning Direkt                                                                                                                       |
 
+!!! note "Begränsningar i tjänsten Fastighetsindelning Direkt"
+    Tjänsten Fastighetsindelning Direkt är avgiftsfri, men innehåller i dagsläget ej 3D-fastigheter.
+
 ## Sökinställningar
 
 Du kan justera hur sökningen fungerar genom att justera [sökfältets inställningar](https://docs.qgis.org/latest/en/docs/user_manual/introduction/qgis_configuration.html#locator-settings) (på svenska heter fliken "Sökaren").

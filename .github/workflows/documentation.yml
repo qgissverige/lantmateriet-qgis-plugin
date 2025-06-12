@@ -11,7 +11,7 @@ on:
       - "lantmateriet_qgis/metadata.txt"
       - 'requirements/documentation.txt'
       - '*.md'
-    tags: 
+    tags:
       - "*"
 
   pull_request:

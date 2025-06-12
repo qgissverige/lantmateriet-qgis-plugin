@@ -70,4 +70,3 @@ jobs:
         run: |
           Xvfb :1 &
           python3 -m pytest tests/qgis/
-

@@ -7,7 +7,15 @@ from qgis.core import (
 from qgis.gui import QgsOptionsPageWidget, QgsOptionsWidgetFactory
 from qgis.PyQt import uic
 from qgis.PyQt.QtGui import QIcon, QValidator
-from qgis.PyQt.QtWidgets import QMessageBox, QWidget
+from qgis.PyQt.QtWidgets import (
+    QCheckBox,
+    QDialog,
+    QLabel,
+    QMessageBox,
+    QPushButton,
+    QVBoxLayout,
+    QWidget,
+)
 from qgis.utils import iface
 
 from lantmateriet_qgis.__about__ import (
@@ -191,6 +199,80 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
                 self.tr("Konfigurationen är korrekt."),
             )
 
+    def get_existing_stac_connection_keys(self):
+        # Get STAC connections node
+        stac_settings_node = QgsSettingsTree.node("connections").childNode("stac")
+
+        return stac_settings_node.items()
+
+    def get_existing_oapif_connection_keys(self):
+        # Get WFS/OAPIF connections node
+        oapif_settings_node = (
+            QgsSettingsTree.node("connections")
+            .childNode("ows")
+            .childNode("connections")
+        )
+
+        return oapif_settings_node.items(["wfs"])
+
+    def select_connections(self, stac_connections: dict, oapif_connections: dict):
+        dialog = QDialog()
+        dialog.setWindowTitle("Välj tjänster att lägga till i browsern")
+        layout = QVBoxLayout()
+
+        label = QLabel("STAC:")
+        layout.addWidget(label)
+        checkboxes_stac = {}
+        stac_keys = self.get_existing_stac_connection_keys()
+        for key in stac_connections:
+            checkbox = QCheckBox(key, dialog)
+            checkboxes_stac[key] = checkbox
+            # Check if connection already exists, then disable since connections can't be removed once added
+            for stac_key in stac_keys:
+                if stac_key == key:
+                    checkbox.setChecked(True)
+                    checkbox.setEnabled(False)
+            layout.addWidget(checkbox)
+
+        label = QLabel("OGC API Features:")
+        layout.addWidget(label)
+        checkboxes_oapif = {}
+        oapif_keys = self.get_existing_oapif_connection_keys()
+        for key in oapif_connections:
+            checkbox = QCheckBox(key, dialog)
+            checkboxes_oapif[key] = checkbox
+            # Check if connection already exists, then disable since connections can't be removed once added
+            for oapif_key in oapif_keys:
+                if oapif_key == key:
+                    checkbox.setChecked(True)
+                    checkbox.setEnabled(False)
+            layout.addWidget(checkbox)
+
+        button_layout = QVBoxLayout()
+        ok_button = QPushButton("OK", dialog)
+        cancel_button = QPushButton("Cancel", dialog)
+
+        button_layout.addWidget(ok_button)
+        button_layout.addWidget(cancel_button)
+        layout.addLayout(button_layout)
+
+        ok_button.clicked.connect(dialog.accept)
+        cancel_button.clicked.connect(dialog.reject)
+
+        dialog.setLayout(layout)
+
+        result = dialog.exec_()
+        if result == QDialog.Accepted:
+            checked_stac_connections = {
+                key: checkbox.isChecked() for key, checkbox in checkboxes_stac.items()
+            }
+            checked_oapif_connections = {
+                key: checkbox.isChecked() for key, checkbox in checkboxes_oapif.items()
+            }
+            return checked_stac_connections, checked_oapif_connections
+        else:
+            return None, None  # Cancel pressed
+
     def add_to_connections(self):
         """Create connection settings, base urls, service names"""
 
@@ -242,6 +324,26 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
 
         oapif_connections.update(stac_connections)
 
+        # Let user decide which connections to add
+        selected_connections_stac, selected_connections_oapif = self.select_connections(
+            stac_connections, oapif_connections
+        )
+
+        # User pressed cancel
+        if selected_connections_stac is None and selected_connections_oapif is None:
+            return
+
+        # Only add selected connections
+        if selected_connections_stac is not None:
+            for key, checked in selected_connections_stac.items():
+                if not checked:
+                    stac_connections.pop(key, None)
+
+        if selected_connections_oapif is not None:
+            for key, checked in selected_connections_oapif.items():
+                if not checked:
+                    oapif_connections.pop(key, None)
+
         # Get STAC connections node
         stac_settings_node = QgsSettingsTree.node("connections").childNode("stac")
 
@@ -253,8 +355,8 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
             .childNode("connections")
         )
 
-        # Check if a connection already exists with same name and if it different in authcfg or url. If so, let user decide what to do.
-        keys = stac_settings_node.items()
+        # Check if a connection already exists with the same name and if it differs in authcfg or url. If so, let user decide what to do.
+        keys = self.get_existing_stac_connection_keys()
         for key in keys:
             item = stac_connections.get(key, None)
             if item is not None:
@@ -278,7 +380,7 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
                     elif res == QMessageBox.StandardButton.Cancel:
                         return
 
-        keys = oapif_settings_node.items(["wfs"])
+        keys = self.get_existing_oapif_connection_keys()
         for key in keys:
             item = oapif_connections.get(key, None)
             if item is not None:

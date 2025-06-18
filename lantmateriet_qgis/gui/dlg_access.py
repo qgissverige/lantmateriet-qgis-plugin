@@ -2,24 +2,33 @@ import json
 import os
 
 from qgis.core import Qgis, QgsApplication, QgsAuthManager, QgsAuthMethodConfig
-from qgis.PyQt import QtWidgets, uic
+from qgis.PyQt import uic
+from qgis.PyQt.QtCore import QUrl
+from qgis.PyQt.QtGui import QDesktopServices
+from qgis.PyQt.QtWidgets import QDialog, QWidget
 
 from lantmateriet_qgis.core.util.oauth_config import GrantFlow
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(os.path.dirname(__file__), "dlg_access.ui"))
 
 
-class CreateLMOAuthConfigurationDialog(QtWidgets.QDialog, FORM_CLASS):
+class CreateLMOAuthConfigurationDialog(QDialog, FORM_CLASS):
     """Create access keys"""
 
-    def __init__(self, base_url: str, name_base: str):
-        super(CreateLMOAuthConfigurationDialog, self).__init__()
+    def __init__(self, base_url: str, name_base: str, parent: QWidget = None):
+        super(CreateLMOAuthConfigurationDialog, self).__init__(parent)
         self.base_url = base_url
         self.name_base = name_base
         self.setupUi(self)
         self.button_box.accepted.connect(self.accept)
         self.button_box.rejected.connect(self.reject)
-        self.button_box.helpRequested.connect(lambda: None)
+        self.button_box.helpRequested.connect(
+            lambda: QDesktopServices.openUrl(
+                QUrl(
+                    "https://qgissverige.github.io/lantmateriet-qgis-plugin/usage/installningar/"
+                )
+            )
+        )
         self.new_auth_cfg_id = None
 
     def accept(self):

@@ -62,6 +62,9 @@ class PropertyLocatorFilter(BaseLocatorFilter):
                 )
             except Canceled:
                 return
+            except Exception as e:
+                self.log_exception(e)
+                return
 
             for type, items in groupby(
                 results,
@@ -152,7 +155,7 @@ class PropertyLocatorFilter(BaseLocatorFilter):
             except Canceled:
                 return
             except Exception as e:
-                self.logMessage(str(e), Qgis.MessageLevel.Warning)
+                self.log_exception(e)
                 return
             geometry = result["geometry"]
         else:
@@ -165,7 +168,7 @@ class PropertyLocatorFilter(BaseLocatorFilter):
                 except Canceled:
                     return
                 except Exception as e:
-                    self.logMessage(str(e), Qgis.MessageLevel.Warning)
+                    self.log_exception(e)
                     return
                 geometry = result["geometry"]
             elif s.fastighetsindelning_direkt_enabled:
@@ -178,7 +181,7 @@ class PropertyLocatorFilter(BaseLocatorFilter):
                 except Canceled:
                     return
                 except Exception as e:
-                    self.logMessage(str(e), Qgis.MessageLevel.Warning)
+                    self.log_exception(e)
                     raise
                 geometry = geometries[identifier][
                     "geometry"

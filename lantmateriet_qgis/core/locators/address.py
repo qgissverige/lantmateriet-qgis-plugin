@@ -59,6 +59,8 @@ class AddressLocatorFilter(BaseLocatorFilter):
             )
         except Canceled:
             return None
+        except Exception as e:
+            self.log_exception(e)
 
         for adress in references:
             result = QgsLocatorResult(self, adress["objektidentitet"], adress)
@@ -90,7 +92,7 @@ class AddressLocatorFilter(BaseLocatorFilter):
         except Canceled:
             return
         except Exception as e:
-            self.logMessage(str(e), Qgis.MessageLevel.Warning)
+            self.log_exception(e)
             return
 
         self.highlight(address["geometry"])

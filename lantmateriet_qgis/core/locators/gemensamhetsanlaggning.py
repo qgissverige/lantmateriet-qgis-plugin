@@ -1,11 +1,12 @@
 from typing import Self
 
-from qgis.core import Qgis, QgsFeedback, QgsLocatorContext, QgsLocatorResult
+from qgis.core import QgsFeedback, QgsLocatorContext, QgsLocatorResult
 from qgis.gui import QgisInterface
 
 from lantmateriet_qgis.core.clients import (
     GemensamhetsanlaggningDirektClient,
 )
+from lantmateriet_qgis.core.clients.base import Canceled
 from lantmateriet_qgis.core.locators.base import BaseLocatorFilter
 
 
@@ -47,8 +48,11 @@ class GemensamhetsanlaggningLocatorFilter(BaseLocatorFilter):
 
         try:
             references = client.get_references_from_text(string)
-        except Exception:
-            return None
+        except Canceled:
+            return
+        except Exception as e:
+            self.log_exception(e)
+            return
 
         for ga in references:
             result = QgsLocatorResult(self, ga["objektidentitet"], ga)
@@ -63,7 +67,7 @@ class GemensamhetsanlaggningLocatorFilter(BaseLocatorFilter):
         try:
             ga = client.get_one(user_data["objektidentitet"], "geometri")
         except Exception as e:
-            self.logMessage(str(e), Qgis.MessageLevel.Warning)
+            self.log_exception(e)
             return
 
         self.highlight(ga["geometry"])

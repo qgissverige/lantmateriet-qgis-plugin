@@ -1,3 +1,7 @@
+import os
+import sys
+import traceback
+
 from qgis.core import (
     Qgis,
     QgsCoordinateTransform,
@@ -75,6 +79,19 @@ class BaseLocatorFilter(QgsLocatorFilter):
             self._rubber_band.setLineStyle(Qt.PenStyle.DashLine)
             self._rubber_band.setWidth(2)
         self._rubber_band.addGeometry(geometry, None)
+
+    def log_exception(self, e: Exception):
+        self.info(e, Qgis.MessageLevel.Critical)
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        filename = os.path.split(exc_traceback.tb_frame.f_code.co_filename)[1]
+        self.info(
+            "{} {} {}".format(exc_type, filename, exc_traceback.tb_lineno),
+            Qgis.MessageLevel.Critical,
+        )
+        self.info(
+            traceback.print_exception(exc_type, exc_obj, exc_traceback),
+            Qgis.MessageLevel.Critical,
+        )
 
     @staticmethod
     def get_user_data(result: QgsLocatorResult) -> dict:

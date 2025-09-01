@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - name: Get source code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Run ruff check
         uses: astral-sh/ruff-action@v3
       - name: Run ruff format
@@ -36,7 +36,7 @@ jobs:
 
     steps:
       - name: Get source code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Install uv
         uses: astral-sh/setup-uv@v6
       - name: Run flake8

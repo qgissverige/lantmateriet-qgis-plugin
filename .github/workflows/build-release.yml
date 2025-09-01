@@ -57,7 +57,7 @@ jobs:
         uses: astral-sh/setup-uv@v6
 
       - name: Download translations
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: translations-build
           path: lantmateriet_qgis
@@ -106,7 +106,7 @@ jobs:
         uses: astral-sh/setup-uv@v6
 
       - name: Download translations
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: translations-build
           path: lantmateriet_qgis

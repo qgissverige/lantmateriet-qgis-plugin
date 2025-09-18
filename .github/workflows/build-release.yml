@@ -7,7 +7,7 @@ on:
       - ci/*
     paths:
       - .github/workflows/build-release.yml
-      - "lantmateriet_qgis/**/*."
+      - "lantmateriet_qgis/**/*"
     tags:
       - "*"
 

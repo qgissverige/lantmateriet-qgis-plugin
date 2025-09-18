@@ -1,3 +1,9 @@
+<div align="center">
+
+<img src="docs/logo.svg" width="100px" />
+
+</div>
+
 # QGIS Plugin for Lantmäteriets services
 
 This is a QGIS plugin that provides a convenient connection to several of Lantmäteriet's (the national land survey of Sweden) services, such as downloading data, connecting to STAC endpoints, and searching using the locator.

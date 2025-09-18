@@ -17,6 +17,8 @@ theme:
   palette:
     primary: custom
     accent: custom
+  logo: logo.svg
+  favicon: logo.svg
 plugins:
   - privacy
   - search

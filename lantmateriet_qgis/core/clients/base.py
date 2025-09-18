@@ -10,7 +10,7 @@ def coerce_uuid_to_str(uuid: str | UUID | QUuid) -> str:
     if isinstance(uuid, UUID):
         return str(uuid)
     elif isinstance(uuid, QUuid):
-        return uuid.toString(QUuid.WithoutBraces)
+        return uuid.toString(QUuid.StringFormat.WithoutBraces)
     elif isinstance(uuid, str):
         return uuid
     else:
@@ -46,13 +46,16 @@ class BaseClient:
 
         if self._request.get(
             req, feedback=self._feedback
-        ) != QgsBlockingNetworkRequest.NoError or (
+        ) != QgsBlockingNetworkRequest.ErrorCode.NoError or (
             self._feedback is not None and self._feedback.isCanceled()
         ):
             if self._feedback is not None and self._feedback.isCanceled():
                 raise Canceled()
             else:
-                raise Exception("Network error: " + self._request.errorMessage())
+                reply = self._request.reply().content().data().decode()
+                raise Exception(
+                    "Network error: " + self._request.errorMessage() + "\n" + reply
+                )
 
         response = self._request.reply().content().data().decode()
         return json.loads(response), {
@@ -77,13 +80,16 @@ class BaseClient:
 
         if self._request.post(
             req, data, feedback=self._feedback
-        ) != QgsBlockingNetworkRequest.NoError or (
+        ) != QgsBlockingNetworkRequest.ErrorCode.NoError or (
             self._feedback is not None and self._feedback.isCanceled()
         ):
             if self._feedback is not None and self._feedback.isCanceled():
                 raise Canceled()
             else:
-                raise Exception("Network error: " + self._request.errorMessage())
+                reply = self._request.reply().content().data().decode()
+                raise Exception(
+                    "Network error: " + self._request.errorMessage() + "\n" + reply
+                )
 
         response = self._request.reply().content().data().decode()
         return json.loads(response)

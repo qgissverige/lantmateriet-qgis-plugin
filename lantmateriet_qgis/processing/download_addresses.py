@@ -1,3 +1,4 @@
+import json
 from typing import Any, Optional
 
 from qgis.core import (
@@ -33,22 +34,22 @@ from lantmateriet_qgis.core.clients.belagenhetsadressdirekt import (
 from lantmateriet_qgis.core.settings import Settings
 
 fields = QgsFields()
-fields.append(QgsField("objektidentitet", QMetaType.QString))
-fields.append(QgsField("adressplatsattribut", QMetaType.QVariantMap, "json"))
-fields.append(QgsField("adressplatsnamn", QMetaType.QVariantMap, "json"))
-fields.append(QgsField("adressomrade", QMetaType.QVariantMap, "json"))
-fields.append(QgsField("gardsadressomrade", QMetaType.QVariantMap, "json"))
+fields.append(QgsField("objektidentitet", QMetaType.Type.QString))
+fields.append(QgsField("adressplatsattribut", QMetaType.Type.QVariantMap, "json"))
+fields.append(QgsField("adressplatsnamn", QMetaType.Type.QVariantMap, "json"))
+fields.append(QgsField("adressomrade", QMetaType.Type.QVariantMap, "json"))
+fields.append(QgsField("gardsadressomrade", QMetaType.Type.QVariantMap, "json"))
 fields.append(
     QgsField(
         "adressplatsanmarkning",
-        QMetaType.QVariantList,
+        QMetaType.Type.QVariantList,
         "json",
-        subType=QMetaType.QVariantMap,
+        subType=QMetaType.Type.QVariantMap,
     )
 )
-fields.append(QgsField("adressattAnlaggning", QMetaType.QVariantMap, "json"))
-fields.append(QgsField("distriktstillhorighet", QMetaType.QVariantMap, "json"))
-fields.append(QgsField("registerenhetsreferens", QMetaType.QVariantMap, "json"))
+fields.append(QgsField("adressattAnlaggning", QMetaType.Type.QVariantMap, "json"))
+fields.append(QgsField("distriktstillhorighet", QMetaType.Type.QVariantMap, "json"))
+fields.append(QgsField("registerenhetsreferens", QMetaType.Type.QVariantMap, "json"))
 
 
 def to_feature(address: BelagenhetsadressTotal) -> QgsFeature:
@@ -57,7 +58,7 @@ def to_feature(address: BelagenhetsadressTotal) -> QgsFeature:
     feature.setAttributes(
         [
             address["objektidentitet"],
-            address["adressplatsattribut"],
+            json.dumps(address["adressplatsattribut"]),
             address["adressplatsnamn"] if "adressplatsnamn" in address else None,
             address["adressomrade"],
             address["gardsadressomrade"] if "gardsadressomrade" in address else None,
@@ -105,7 +106,7 @@ class AbstractDownloadPropertiesAlgorithm(QgsProcessingAlgorithm):
             self.OUTPUT,
             context,
             fields,
-            QgsWkbTypes.Point,
+            QgsWkbTypes.Type.Point,
             QgsCoordinateReferenceSystem.fromEpsgId(3006),
         )
         if sink is None:

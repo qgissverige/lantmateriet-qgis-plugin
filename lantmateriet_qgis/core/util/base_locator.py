@@ -39,7 +39,7 @@ class BaseLocatorFilter(QgsLocatorFilter):
         self._rubber_band = QgsRubberBand(self._iface.mapCanvas(), geometry.type())
         self._rubber_band.setColor(QColor(255, 50, 50, 200))
         self._rubber_band.setBrushStyle(Qt.BrushStyle.NoBrush)
-        if geometry.wkbType() == QgsWkbTypes.PointGeometry:
+        if geometry.wkbType() == QgsWkbTypes.GeometryType.PointGeometry:
             self._rubber_band.setLineStyle(Qt.PenStyle.DashLine)
             self._rubber_band.setWidth(2)
         else:

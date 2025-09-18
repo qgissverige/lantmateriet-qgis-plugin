@@ -228,7 +228,7 @@ class FastighetsindelningDirektClient(BaseClient):
                         ("senastandrad", "geometry", "beteckning"),
                     ),
                     senastandrad=QDateTime.fromString(
-                        feature["properties"]["senastandrad"], Qt.ISODate
+                        feature["properties"]["senastandrad"], Qt.DateFormat.ISODate
                     ),
                     geometry=QgsReferencedGeometry(
                         maybe_flip(
@@ -247,7 +247,7 @@ class FastighetsindelningDirektClient(BaseClient):
                 RegisterenhetsOmrade(
                     **omit(feature["properties"], ("senastandrad", "beteckning")),
                     senastandrad=QDateTime.fromString(
-                        feature["properties"]["senastandrad"], Qt.ISODate
+                        feature["properties"]["senastandrad"], Qt.DateFormat.ISODate
                     ),
                     beteckning=f"{feature['properties']['kommunnamn']} {feature['properties']['trakt']} {feature['properties']['etikett']}",
                 )

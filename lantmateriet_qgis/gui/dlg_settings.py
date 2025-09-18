@@ -39,8 +39,8 @@ FORM_CLASS, _ = uic.loadUiType(
 class UrlValidator(QValidator):
     def validate(self, input: str, pos: int):
         if QgsStringUtils.isUrl(input):
-            return QValidator.Acceptable, input, pos
-        return QValidator.Intermediate, input, pos
+            return QValidator.State.Acceptable, input, pos
+        return QValidator.State.Intermediate, input, pos
 
 
 def _auth_url(is_prod: bool, is_ver: bool) -> str | None:
@@ -86,7 +86,7 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         dlg = CreateLMOAuthConfigurationDialog(
             url_base, "PROD" if self.button_ngp_prod.isChecked() else "VER", self
         )
-        if dlg.exec_() == CreateLMOAuthConfigurationDialog.Accepted:
+        if dlg.exec() == CreateLMOAuthConfigurationDialog.Accepted:
             self.auth_ngp.setConfigId("")
             self.auth_ngp.setConfigId(dlg.new_auth_cfg_id)
 
@@ -99,7 +99,7 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         dlg = CreateLMOAuthConfigurationDialog(
             url_base, "VER" if self.button_ovrig_ver.isChecked() else "PROD", self
         )
-        if dlg.exec_() == CreateLMOAuthConfigurationDialog.Accepted:
+        if dlg.exec() == CreateLMOAuthConfigurationDialog.Accepted:
             self.auth_ovrig.setConfigId("")
             self.auth_ovrig.setConfigId(dlg.new_auth_cfg_id)
 
@@ -261,8 +261,8 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
 
         dialog.setLayout(layout)
 
-        result = dialog.exec_()
-        if result == QDialog.Accepted:
+        result = dialog.exec()
+        if result == QDialog.DialogCode.Accepted:
             checked_stac_connections = {
                 key: checkbox.isChecked() for key, checkbox in checkboxes_stac.items()
             }

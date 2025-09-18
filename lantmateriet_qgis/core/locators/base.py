@@ -42,7 +42,7 @@ class BaseLocatorFilter(QgsLocatorFilter):
         return self._iface
 
     def highlight(self, geometry: QgsReferencedGeometry):
-        if geometry.wkbType() == QgsWkbTypes.GeometryCollection:
+        if geometry.wkbType() == QgsWkbTypes.Type.GeometryCollection:
             for type_ in (
                 Qgis.GeometryType.Point,
                 Qgis.GeometryType.Line,
@@ -71,7 +71,7 @@ class BaseLocatorFilter(QgsLocatorFilter):
         self._rubber_band = QgsRubberBand(self._iface.mapCanvas(), geometry.type())
         self._rubber_band.setColor(QColor(255, 50, 50, 200))
         self._rubber_band.setBrushStyle(Qt.BrushStyle.NoBrush)
-        if geometry.wkbType() == QgsWkbTypes.Point:
+        if geometry.wkbType() == QgsWkbTypes.Type.Point:
             self._rubber_band.setIcon(QgsRubberBand.IconType.ICON_CIRCLE)
             self._rubber_band.setIconSize(16)
             self._rubber_band.setWidth(4)

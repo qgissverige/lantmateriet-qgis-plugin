@@ -46,7 +46,7 @@ class Settings:
     @classmethod
     def load_from_settings(cls) -> Self:
         settings = QgsSettings()
-        settings.beginGroup("lantmateriet", QgsSettings.Plugins)
+        settings.beginGroup("lantmateriet", QgsSettings.Section.Plugins)
         return cls(
             ngp_enabled=bool(settings.value("ngp_enabled", False)),
             ngp_authcfg=settings.value("ngp_authcfg", ""),
@@ -79,7 +79,7 @@ class Settings:
 
     def store_to_settings(self):
         settings = QgsSettings()
-        settings.beginGroup("lantmateriet", QgsSettings.Plugins)
+        settings.beginGroup("lantmateriet", QgsSettings.Section.Plugins)
         settings.setValue("ngp_enabled", self.ngp_enabled)
         settings.setValue("ngp_authcfg", self.ngp_authcfg)
         settings.setValue("ngp", self.ngp)

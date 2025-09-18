@@ -40,20 +40,20 @@ from lantmateriet_qgis.core.util.municipalities import municipalities
 
 def make_fields(source: Literal["fastighetsindelningdirekt"] | IncludableData):
     fields = QgsFields()
-    fields.append(QgsField("objektidentitet", QMetaType.QString))
-    fields.append(QgsField("objekttyp", QMetaType.QString))
-    fields.append(QgsField("senastandrad", QMetaType.QDateTime))
-    fields.append(QgsField("lanskod", QMetaType.QString))
-    fields.append(QgsField("kommunkod", QMetaType.QString))
-    fields.append(QgsField("kommunnamn", QMetaType.QString))
-    fields.append(QgsField("trakt", QMetaType.QString))
-    fields.append(QgsField("block", QMetaType.QString))
-    fields.append(QgsField("enhet", QMetaType.UInt))
-    fields.append(QgsField("etikett", QMetaType.QString))
-    fields.append(QgsField("beteckning", QMetaType.QString))
+    fields.append(QgsField("objektidentitet", QMetaType.Type.QString))
+    fields.append(QgsField("objekttyp", QMetaType.Type.QString))
+    fields.append(QgsField("senastandrad", QMetaType.Type.QDateTime))
+    fields.append(QgsField("lanskod", QMetaType.Type.QString))
+    fields.append(QgsField("kommunkod", QMetaType.Type.QString))
+    fields.append(QgsField("kommunnamn", QMetaType.Type.QString))
+    fields.append(QgsField("trakt", QMetaType.Type.QString))
+    fields.append(QgsField("block", QMetaType.Type.QString))
+    fields.append(QgsField("enhet", QMetaType.Type.UInt))
+    fields.append(QgsField("etikett", QMetaType.Type.QString))
+    fields.append(QgsField("beteckning", QMetaType.Type.QString))
 
     if source != "fastighetsindelningdirekt":
-        fields.append(QgsField("data", QMetaType.QVariantMap, "json"))
+        fields.append(QgsField("data", QMetaType.Type.QVariantMap, "json"))
 
     return fields
 
@@ -126,7 +126,7 @@ class AbstractDownloadPropertiesAlgorithm(QgsProcessingAlgorithm):
             self.OUTPUT_POLYGONS,
             context,
             fields,
-            QgsWkbTypes.MultiPolygon,
+            QgsWkbTypes.Type.MultiPolygon,
             QgsCoordinateReferenceSystem.fromEpsgId(3006),
         )
         if sink_polygons is None:
@@ -141,7 +141,7 @@ class AbstractDownloadPropertiesAlgorithm(QgsProcessingAlgorithm):
                 self.OUTPUT_LINES,
                 context,
                 fields,
-                QgsWkbTypes.LineString,
+                QgsWkbTypes.Type.LineString,
                 QgsCoordinateReferenceSystem.fromEpsgId(3006),
             )
             if sink_lines is None:
@@ -156,7 +156,7 @@ class AbstractDownloadPropertiesAlgorithm(QgsProcessingAlgorithm):
                 self.OUTPUT_POINTS,
                 context,
                 fields,
-                QgsWkbTypes.Point,
+                QgsWkbTypes.Type.Point,
                 QgsCoordinateReferenceSystem.fromEpsgId(3006),
             )
             if sink_points is None:
@@ -254,7 +254,9 @@ class AbstractDownloadPropertiesAlgorithm(QgsProcessingAlgorithm):
             [
                 object["objektidentitet"],
                 object["typ"],
-                QDateTime.fromString(attributes["versionGiltigFran"], Qt.ISODate),
+                QDateTime.fromString(
+                    attributes["versionGiltigFran"], Qt.DateFormat.ISODate
+                ),
                 attributes["lanskod"],
                 attributes["lanskod"] + attributes["kommunkod"],
                 municipality_name,
@@ -268,12 +270,12 @@ class AbstractDownloadPropertiesAlgorithm(QgsProcessingAlgorithm):
         )
 
         geom_type = QgsWkbTypes.singleType(feature.geometry().wkbType())
-        if geom_type == QgsWkbTypes.Polygon:
+        if geom_type == QgsWkbTypes.Type.Polygon:
             sink_polygons.addFeature(feature, QgsFeatureSink.Flag.FastInsert)
-        elif geom_type == QgsWkbTypes.LineString:
+        elif geom_type == QgsWkbTypes.Type.LineString:
             if sink_lines is not None:
                 sink_lines.addFeature(feature, QgsFeatureSink.Flag.FastInsert)
-        elif geom_type == QgsWkbTypes.Point:
+        elif geom_type == QgsWkbTypes.Type.Point:
             if sink_points is not None:
                 sink_points.addFeature(feature, QgsFeatureSink.Flag.FastInsert)
         else:

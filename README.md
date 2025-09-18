@@ -4,7 +4,7 @@ This is a QGIS plugin that provides a convenient connection to several of Lantm√
 
 <div align="center">
 
-[Snabbstart](https://qgissverige.github.io/lantmateriet-qgis-plugin/usage/snabbstart/) &bullet; [Usage](https://qgissverige.github.io/lantmateriet-qgis-plugin/usage/) &bullet; [Development](https://qgissverige.github.io/lantmateriet-qgis-plugin/development/)
+[Snabbstart](https://qgissverige.github.io/lantmateriet-qgis-plugin/usage/snabbstart/) &bullet; [Usage](https://qgissverige.github.io/lantmateriet-qgis-plugin/usage/) &bullet; [Development](https://qgissverige.github.io/lantmateriet-qgis-plugin/development/contribute/)
 
 </div>
 

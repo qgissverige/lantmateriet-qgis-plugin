@@ -197,7 +197,7 @@
          <item row="1" column="1">
           <widget class="QCheckBox" name="button_hojdgrid_nedladdning">
            <property name="text">
-            <string>Höjdgrid Nedladdning</string>
+            <string>Markhöjdmodell Nedladdning</string>
            </property>
           </widget>
          </item>

@@ -312,7 +312,7 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
                 s.ovrig_authcfg,
             )
         if s.ovrig_enabled and s.hojdgrid_nedladdning_enabled:
-            stac_connections["Höjdgrid Nedladdning"] = (
+            stac_connections["Markhöjdmodell Nedladdning"] = (
                 s.ovrig_url + URLConfig.LM_STAC_HOJDGRID_NEDLADD,
                 s.ovrig_authcfg,
             )

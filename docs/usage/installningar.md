@@ -42,6 +42,8 @@ flödet, vilket inte kräver användarnamn och lösenord. För versioner innan 3
 
 Det går även bra att använda en befintlig OAuth 2-konfiguration, t.ex. om du har en sådan i QGIS sedan tidigare.
 
+[:octicons-arrow-right-24: Mer om åtkomstnycklar](installningar/atkomstnycklar.md)
+
 ## Kommandon
 
 I inställningsdialogen finns även några knappar för att köra olika kommandon.

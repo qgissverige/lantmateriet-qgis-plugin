@@ -10,7 +10,7 @@
 
 1. Öppna inställningarna för QGIS (i menyn under _Inställningar_ > _Alternativ..._) och välj fliken _Lantmäteriet_
 2. Klicka på knappen _Ange åtkomstnycklar_ i sektionen för _Nationella geodataplattformen_ och/eller _Övriga tjänster_
-3. Ange åtkomstnycklarna (client ID respektive client secret) du fått från Lantmäteriets API-manager
+3. Ange åtkomstnycklarna (client ID respektive client secret) du fått från Lantmäteriets API-manager ([instruktioner](installningar/atkomstnycklar.md))
 4. Ange de övriga tjänster du har tillgång till i sektionen _Övriga tjänster_
 5. Klicka på knappen _Verifiera konfiguration_ för att kontrollera att allt är korrekt inställt
 

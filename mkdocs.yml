@@ -12,6 +12,7 @@ theme:
     - navigation.tabs
     - navigation.sections
     - navigation.indexes
+    - content.tabs.link
   icon:
     repo: fontawesome/brands/github
   palette:
@@ -37,12 +38,15 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.keys
   - md_in_html
+  - sane_lists
   - toc:
       permalink: true
       toc_depth: 4
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.tabbed:
+      alternate_style: true
 extra_css:
   - stylesheets/trueno.css
   - stylesheets/customization.css
@@ -64,6 +68,7 @@ nav:
       - usage/snabbstart.md
       - usage/installation.md
       - usage/installningar.md
+      - Åtkomstnycklar: usage/installningar/atkomstnycklar.md
     - Funktioner:
       - usage/sokning.md
       - Algoritmer:

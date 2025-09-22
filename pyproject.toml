@@ -1,6 +1,6 @@
 [project]
 name = "lantmateriet-qgis"
-version = "0.1.0"
+version = "1.0.0"
 description = "Convenient connection to several of Lantmäteriet's services"
 readme = "README.md"
 

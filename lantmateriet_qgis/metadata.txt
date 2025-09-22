@@ -1,22 +1,22 @@
 [general]
-name=Lantmäteriet
+name=Lantmäteriets tjänster
 about=Convenient connection to several of Lantmäteriet's services
-category=None
+category=Web
 hasProcessingProvider=True
 description=Convenient connection to several of Lantmäteriet's (the national land survey of Sweden) services, such as downloading data, connecting to STAC endpoints, and searching using the locator
 icon=resources/images/logo.svg
 tags=locator,stac
 
-author=Sweco Sverige AB
-email=qgis@sweco.se
-homepage=https://github.com/sweco-se/30085743-qgis_lantmateriet_tjanster
-repository=https://github.com/sweco-se/30085743-qgis_lantmateriet_tjanster
-tracker=https://github.com/sweco-se/30085743-qgis_lantmateriet_tjanster/issues/
+author=QGIS Sverige, Sweco
+email=info@qgis.se
+homepage=https://qgissverige.github.io/lantmateriet-qgis-plugin
+repository=https://github.com/qgissverige/lantmateriet-qgis-plugin
+tracker=https://github.com/qgissverige/lantmateriet-qgis-plugin/issues/
 
 deprecated=False
-experimental=True
+experimental=False
 qgisMinimumVersion=3.34
-qgisMaximumVersion=3.99
+qgisMaximumVersion=4.99
 
-version=0.1.0
+version=1.0.0
 changelog=

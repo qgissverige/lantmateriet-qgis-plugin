@@ -119,6 +119,11 @@ jobs:
           # git add full project
           git add lantmateriet_qgis/
 
+      - name: Rename license file
+        run: |
+          # qgis-plugin-ci requires the file to be named exactly "LICENSE"
+          git mv LICENSE.md LICENSE
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:

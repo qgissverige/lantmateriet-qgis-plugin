@@ -18,5 +18,5 @@ experimental=False
 qgisMinimumVersion=3.34
 qgisMaximumVersion=4.99
 
-version=1.0.0
+version=1.0.1
 changelog=

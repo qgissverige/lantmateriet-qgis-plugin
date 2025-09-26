@@ -2,6 +2,12 @@
 
 Detta format är baserat på [Keep a Changelog](https://keepachangelog.com/sv/) och detta projekt använder sig av [Semantic Versioning](https://semver.org/).
 
+## 1.0.1 - 2025-09-26
+
+* Korrigera fel vid loggning av nätverksfel vid sökning
+* Loggning för inläsning/uppdatering av inställningar
+* Bättre hantering av egna URLer
+
 ## 1.0.0 - 2025-06-30
 
 * Första publika version

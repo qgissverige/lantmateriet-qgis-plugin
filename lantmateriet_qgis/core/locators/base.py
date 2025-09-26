@@ -81,14 +81,14 @@ class BaseLocatorFilter(QgsLocatorFilter):
         self._rubber_band.addGeometry(geometry, None)
 
     def log_exception(self, e: Exception):
-        self.info(e, Qgis.MessageLevel.Critical)
+        self.logMessage(repr(e), Qgis.MessageLevel.Critical)
         exc_type, exc_obj, exc_traceback = sys.exc_info()
         filename = os.path.split(exc_traceback.tb_frame.f_code.co_filename)[1]
-        self.info(
+        self.logMessage(
             "{} {} {}".format(exc_type, filename, exc_traceback.tb_lineno),
             Qgis.MessageLevel.Critical,
         )
-        self.info(
+        self.logMessage(
             traceback.print_exception(exc_type, exc_obj, exc_traceback),
             Qgis.MessageLevel.Critical,
         )

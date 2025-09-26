@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from qgis.core import (
+    QgsMessageLog,
     QgsSettingsTree,
     QgsStringUtils,
 )
@@ -148,6 +149,7 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         dialog is accepted."""
 
         s = self._to_settings()
+        QgsMessageLog.logMessage(f"Storing settings: {repr(s)}")
         s.store_to_settings()
 
         if (
@@ -431,6 +433,7 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         """Load options from QgsSettings into UI form."""
 
         s = Settings.load_from_settings()
+        QgsMessageLog.logMessage(f"Loaded settings: {repr(s)}")
 
         self.group_box_ngp.setChecked(s.ngp_enabled)
         if s.ngp == "production":

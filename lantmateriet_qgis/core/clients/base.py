@@ -38,7 +38,7 @@ class BaseClient:
     def _get_with_headers(
         self, path: str, query: QUrlQuery
     ) -> tuple[dict | list, dict] | Canceled:
-        url = QUrl(f"{self._base_url}{self.base_path}{path}")
+        url = QUrl(f"{self._base_url.rstrip('/')}{self.base_path.rstrip('/')}{path}")
         url.setQuery(query)
 
         req = QNetworkRequest(url)
@@ -68,7 +68,7 @@ class BaseClient:
     def _post(
         self, path: str, query: QUrlQuery, data: bytes | dict | list
     ) -> dict | list | Canceled:
-        url = QUrl(f"{self._base_url}{self.base_path}{path}")
+        url = QUrl(f"{self._base_url.rstrip('/')}{self.base_path.rstrip('/')}{path}")
         url.setQuery(query)
 
         req = QNetworkRequest(url)

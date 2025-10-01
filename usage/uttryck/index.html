@@ -1,0 +1,2871 @@
+
+<!doctype html>
+<html lang="sv" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Smidig anslutning till Lantmäteriets tjänster från QGIS">
+      
+      
+      
+        <link rel="canonical" href="https://qgisservice.github.io/lantmateriet-qgis-plugin/usage/uttryck/">
+      
+      
+        <link rel="prev" href="../algoritmer/download-properties-polygons/">
+      
+      
+        <link rel="next" href="../../development/contribute/">
+      
+      
+      <link rel="icon" href="../../logo.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+    
+    
+      
+        <title>Uttryck - QGIS-plugin för Lantmäteriets tjänster</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.2a3383ac.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        
+        <link rel="stylesheet" href="../../assets/external/fonts.googleapis.com/css.49ea35f2.css">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/trueno.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/customization.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+      
+        <meta  property="og:type"  content="website" >
+      
+        <meta  property="og:title"  content="Uttryck - QGIS-plugin för Lantmäteriets tjänster" >
+      
+        <meta  property="og:description"  content="Smidig anslutning till Lantmäteriets tjänster från QGIS" >
+      
+        <meta  property="og:image"  content="https://qgisservice.github.io/lantmateriet-qgis-plugin/assets/images/social/usage/uttryck.png" >
+      
+        <meta  property="og:image:type"  content="image/png" >
+      
+        <meta  property="og:image:width"  content="1200" >
+      
+        <meta  property="og:image:height"  content="630" >
+      
+        <meta  property="og:url"  content="https://qgisservice.github.io/lantmateriet-qgis-plugin/usage/uttryck/" >
+      
+        <meta  name="twitter:card"  content="summary_large_image" >
+      
+        <meta  name="twitter:title"  content="Uttryck - QGIS-plugin för Lantmäteriets tjänster" >
+      
+        <meta  name="twitter:description"  content="Smidig anslutning till Lantmäteriets tjänster från QGIS" >
+      
+        <meta  name="twitter:image"  content="https://qgisservice.github.io/lantmateriet-qgis-plugin/assets/images/social/usage/uttryck.png" >
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#uttryck" class="md-skip">
+          Gå till innehållet
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Sidhuvud">
+    <a href="../.." title="QGIS-plugin för Lantmäteriets tjänster" class="md-header__button md-logo" aria-label="QGIS-plugin för Lantmäteriets tjänster" data-md-component="logo">
+      
+  <img src="../../logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            QGIS-plugin för Lantmäteriets tjänster
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Uttryck
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Sök" placeholder="Sök" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Sök">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Rensa" aria-label="Rensa" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialiserar sök
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/qgissverige/lantmateriet-qgis-plugin" title="Gå till datakatalog" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Flikar" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+  
+    
+  
+  Hem
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Användning
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../development/contribute/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Utveckling
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../api-reference/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  API-referens
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="QGIS-plugin för Lantmäteriets tjänster" class="md-nav__button md-logo" aria-label="QGIS-plugin för Lantmäteriets tjänster" data-md-component="logo">
+      
+  <img src="../../logo.svg" alt="logo">
+
+    </a>
+    QGIS-plugin för Lantmäteriets tjänster
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/qgissverige/lantmateriet-qgis-plugin" title="Gå till datakatalog" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Hem
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Hem
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bidragsgivare/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bidragsivare
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Ändringslogg
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../licens/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Licens
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Användning
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Användning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Kom igång
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Kom igång
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../snabbstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Snabbstart
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installningar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Inställningar
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installningar/atkomstnycklar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Åtkomstnycklar
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Funktioner
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Funktioner
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sokning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sökning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../algoritmer/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Algoritmer
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Algoritmer
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_2_2" id="__nav_2_3_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Nedladdning
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_3_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Nedladdning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algoritmer/download-addresses-bounding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hämta adresser inom ett givet område
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algoritmer/download-addresses-polygons/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hämta adresser inom givna polygoner
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algoritmer/download-properties-bounding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hämta fastigheter och samfälligheter inom ett givet område
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algoritmer/download-properties-polygons/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hämta fastigheter och samfälligheter inom givna polygoner
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Uttryck
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Uttryck
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Innehållsförteckning">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Innehållsförteckning
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#address" class="md-nav__link">
+    <span class="md-ellipsis">
+      address
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="address">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#argument" class="md-nav__link">
+    <span class="md-ellipsis">
+      Argument
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Argument">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#geometri" class="md-nav__link">
+    <span class="md-ellipsis">
+      Geometri
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uuid" class="md-nav__link">
+    <span class="md-ellipsis">
+      UUID
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#beteckning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Beteckning
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#svar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Svar
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exempel" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exempel
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#address_geometry" class="md-nav__link">
+    <span class="md-ellipsis">
+      address_geometry
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="address_geometry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#argument_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Argument
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Argument">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#geometri_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Geometri
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uuid_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      UUID
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#beteckning_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Beteckning
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#svar_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Svar
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exempel_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exempel
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#property" class="md-nav__link">
+    <span class="md-ellipsis">
+      property
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="property">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#argument_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Argument
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Argument">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#geometri_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Geometri
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uuid_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      UUID
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#beteckning_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Beteckning
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#svar_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Svar
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Svar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for-fastighetsindelning-direkt" class="md-nav__link">
+    <span class="md-ellipsis">
+      För Fastighetsindelning Direkt
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-fastighet-och-samfallighet-direkt" class="md-nav__link">
+    <span class="md-ellipsis">
+      För Fastighet och Samfällighet Direkt
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exempel_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exempel
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#property_geometry" class="md-nav__link">
+    <span class="md-ellipsis">
+      property_geometry
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="property_geometry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#noteringar_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Noteringar
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#argument_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      Argument
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Argument">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#geometri_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Geometri
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uuid_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      UUID
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#beteckning_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Beteckning
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exempel_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exempel
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Utveckling
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Utveckling
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/contribute/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing Guidelines
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/packaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Packaging and deployment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../api-reference/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    API-referens
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            API-referens
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/cql2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CQL2 Helpers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Klienter
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Klienter
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/belagenhetsadressdirekt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Belägenhetsadress Direkt
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/fastighetochsamfallighetdirekt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fastighet och Samfällighet Direkt
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/fastighetsindelningdirekt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fastighetsindelning Direkt
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/gemensamhetsanlaggningdirekt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gemensamhetsanläggning Direkt
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/registerbeteckningdirekt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Registerbeteckning Direkt
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Innehållsförteckning">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Innehållsförteckning
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#address" class="md-nav__link">
+    <span class="md-ellipsis">
+      address
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="address">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#argument" class="md-nav__link">
+    <span class="md-ellipsis">
+      Argument
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Argument">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#geometri" class="md-nav__link">
+    <span class="md-ellipsis">
+      Geometri
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uuid" class="md-nav__link">
+    <span class="md-ellipsis">
+      UUID
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#beteckning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Beteckning
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#svar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Svar
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exempel" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exempel
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#address_geometry" class="md-nav__link">
+    <span class="md-ellipsis">
+      address_geometry
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="address_geometry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#argument_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Argument
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Argument">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#geometri_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Geometri
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uuid_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      UUID
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#beteckning_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Beteckning
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#svar_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Svar
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exempel_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exempel
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#property" class="md-nav__link">
+    <span class="md-ellipsis">
+      property
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="property">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#argument_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Argument
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Argument">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#geometri_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Geometri
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uuid_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      UUID
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#beteckning_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Beteckning
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#svar_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Svar
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Svar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for-fastighetsindelning-direkt" class="md-nav__link">
+    <span class="md-ellipsis">
+      För Fastighetsindelning Direkt
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-fastighet-och-samfallighet-direkt" class="md-nav__link">
+    <span class="md-ellipsis">
+      För Fastighet och Samfällighet Direkt
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exempel_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exempel
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#property_geometry" class="md-nav__link">
+    <span class="md-ellipsis">
+      property_geometry
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="property_geometry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#noteringar_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Noteringar
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#argument_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      Argument
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Argument">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#geometri_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Geometri
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uuid_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      UUID
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#beteckning_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Beteckning
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exempel_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exempel
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/qgissverige/lantmateriet-qgis-plugin/edit/master/docs/usage/uttryck.md" title="Redigera sidan" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="uttryck">Uttryck<a class="headerlink" href="#uttryck" title="Permanent link">&para;</a></h1>
+<p>Pluginet tillhandahåller flera funktioner som kan användas i uttryck, t.ex. för stilsättning och enklare geokodning.</p>
+<div class="admonition note">
+<p class="admonition-title">Ej lämpligt för större datamängder</p>
+<p>På grund av hur QGIS hanterar uttryck så är de ej lämpliga för att använda på större datamängder, då det inte
+finns någon möjligt att batcha flera anrop till Lantmäteriets direkttjänster. Algoritmer å anda sidan har möjlighet att
+batcha flera anrop och är därför att föredra för större datamängder.</p>
+<p>Exempelvis går det att använda uttrycken som erbjuds för geokodning (via den inbyggda algoritmen
+<a href="https://docs.qgis.org/latest/en/docs/user_manual/processing_algs/qgis/vectorgeometry.html#qgisgeometrybyexpression"><em>Geometri med uttryck</em></a>),
+men det kommer innebära många frågor mot Lantmäteriets direkttjänster vilket innebär trögare utförande.</p>
+<p>För att säkerställa att uppritningen fungerar snabbt så kan man på lager med många objekt använda skalberoende
+stilsättning genom <a href="https://docs.qgis.org/latest/en/docs/user_manual/working_with_vector/vector_properties.html#rule-based-renderer">regel-baserad stilsättning</a>,
+för att använda symbolik utan dessa uttryck för mindre skalor.</p>
+</div>
+<h2 id="address"><code>address(geometri | id | beteckning, [kommunkod])</code><a class="headerlink" href="#address" title="Permanent link">&para;</a></h2>
+<p>Hämtar information om en adress. Funktionen kan ta olika typer av argument.</p>
+<h3 id="argument">Argument<a class="headerlink" href="#argument" title="Permanent link">&para;</a></h3>
+<h4 id="geometri">Geometri<a class="headerlink" href="#geometri" title="Permanent link">&para;</a></h4>
+<p>Hämtar information för den adress som ligger närmast den givna geometrin.</p>
+<h5 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h5>
+<pre><code>address(geometri)
+</code></pre>
+<h5 id="argument_1">Argument<a class="headerlink" href="#argument_1" title="Permanent link">&para;</a></h5>
+<table>
+    <tr>
+        <td><pre><code>geometri</code></pre></td>
+        <td>geometri som ska sökas i närheten av</td>
+    </tr>
+</table>
+
+<h4 id="uuid">UUID<a class="headerlink" href="#uuid" title="Permanent link">&para;</a></h4>
+<p>Hämtar information för adressen med en given identitet (UUID).</p>
+<h5 id="syntax_1">Syntax<a class="headerlink" href="#syntax_1" title="Permanent link">&para;</a></h5>
+<pre><code>address(id)
+</code></pre>
+<h5 id="argument_2">Argument<a class="headerlink" href="#argument_2" title="Permanent link">&para;</a></h5>
+<table>
+    <tr>
+        <td><pre><code>id</code></pre></td>
+        <td>identitet för den adress som ska hämtas</td>
+    </tr>
+</table>
+
+<h4 id="beteckning">Beteckning<a class="headerlink" href="#beteckning" title="Permanent link">&para;</a></h4>
+<p>Hämtar information för adressen med en given beteckning, sökningen kan valfritt begränsas till en given kommunkod.</p>
+<h5 id="syntax_2">Syntax<a class="headerlink" href="#syntax_2" title="Permanent link">&para;</a></h5>
+<pre><code>address(beteckning, [kommunkod])
+</code></pre>
+<p><code>[ ]</code> markerar ett valfritt argument</p>
+<h5 id="argument_3">Argument<a class="headerlink" href="#argument_3" title="Permanent link">&para;</a></h5>
+<table>
+    <tr>
+        <td><pre><code>beteckning</code></pre></td>
+        <td>beteckning för den adress som ska hämtas</td>
+    </tr>
+    <tr>
+        <td><pre><code>kommunkod</code></pre></td>
+        <td>kommunkod inom vilken adresser ska sökas på</td>
+    </tr>
+</table>
+
+<h5 id="noteringar">Noteringar<a class="headerlink" href="#noteringar" title="Permanent link">&para;</a></h5>
+<p>Sökning på beteckning utan kommunkod kan ge adresser i fel del av landet</p>
+<h3 id="svar">Svar<a class="headerlink" href="#svar" title="Permanent link">&para;</a></h3>
+<p>Funktionen returnerar en värdekarta i en nivå med information. Använd index-operatorn (<code>[]</code>) eller
+funktionen <code>map_get</code> för att plocka ut informationen som önskas. Följande nycklar finns att välja
+på (vissa kan dock vara tomma eller saknas):</p>
+<table>
+<thead>
+<tr>
+<th>Nyckel</th>
+<th>Datatyp</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>objektidentitet</code></td>
+<td>Sträng (UUID)</td>
+</tr>
+<tr>
+<td><code>adressplatsattribut.adressplatsbeteckning.adressplatsnummer</code></td>
+<td>Sträng</td>
+</tr>
+<tr>
+<td><code>adressplatsattribut.adressplatsbeteckning.bokstavstillagg</code></td>
+<td>Sträng</td>
+</tr>
+<tr>
+<td><code>adressplatsattribut.adressplatsbeteckning.lagestillagg</code></td>
+<td>Sträng ("UH", "UV", "U")</td>
+</tr>
+<tr>
+<td><code>adressplatsattribut.adressplatsbeteckning.lagestillagsnummer</code></td>
+<td>Heltal</td>
+</tr>
+<tr>
+<td><code>adressplatsattribut.adressplatsbeteckning.avvikandeAdressplatsBeteckning</code></td>
+<td>Sträng</td>
+</tr>
+<tr>
+<td><code>adressplatsattribut.adressplatsbeteckning.avvikerFranStandarden</code></td>
+<td>Boolskt</td>
+</tr>
+<tr>
+<td><code>adressplatsattribut.adressplatstyp</code></td>
+<td>Sträng ("Gatuadressplats", "Metertalsadressplats", "Byadressplats", "Gårdsadressplats")</td>
+</tr>
+<tr>
+<td><code>adressplatsattribut.insamlingslage</code></td>
+<td>Sträng ("Byggnad", "Ingång", "Infart", "Tomtplats", "Ungefärligt lägesbestämd", "Övrigt läge")</td>
+</tr>
+<tr>
+<td><code>adressplatsattribut.status</code></td>
+<td>Sträng ("Reserverad", "Gällande")</td>
+</tr>
+<tr>
+<td><code>adressplatsattribut.objektstatus</code></td>
+<td>Sträng ("Gällande")</td>
+</tr>
+<tr>
+<td><code>adressplatsattribut.postnummer</code></td>
+<td>Heltal</td>
+</tr>
+<tr>
+<td><code>adressplatsattribut.postort</code></td>
+<td>Sträng</td>
+</tr>
+<tr>
+<td><code>adressplatsnamn.popularnamn</code></td>
+<td>Sträng</td>
+</tr>
+<tr>
+<td><code>adressplatsnamn.ortid</code></td>
+<td>Sträng</td>
+</tr>
+<tr>
+<td><code>adressomrade.objektidentitet</code></td>
+<td>Sträng (UUID)</td>
+</tr>
+<tr>
+<td><code>adressomrade.objektversion</code></td>
+<td>Heltal</td>
+</tr>
+<tr>
+<td><code>adressomrade.versionGiltigFran</code></td>
+<td>Sträng (Datum)</td>
+</tr>
+<tr>
+<td><code>adressomrade.faststalltNamn</code></td>
+<td>Sträng</td>
+</tr>
+<tr>
+<td><code>adressomrade.ortid</code></td>
+<td>Sträng</td>
+</tr>
+<tr>
+<td><code>adressomrade.adressomradestyp</code></td>
+<td>Sträng ("Gatuadressomrade", "Metertalsadressomrade", "Byadressomrade")</td>
+</tr>
+<tr>
+<td><code>adressomrade.objektstatus</code></td>
+<td>Sträng ("Gällande")</td>
+</tr>
+<tr>
+<td><code>adressomrade.kommundel.objektidentitet</code></td>
+<td>Sträng (UUID)</td>
+</tr>
+<tr>
+<td><code>adressomrade.kommundel.objektversion</code></td>
+<td>Heltal</td>
+</tr>
+<tr>
+<td><code>adressomrade.kommundel.versionGiltigFran</code></td>
+<td>Sträng (Datum)</td>
+</tr>
+<tr>
+<td><code>adressomrade.kommundel.faststalltNamn</code></td>
+<td>Sträng</td>
+</tr>
+<tr>
+<td><code>adressomrade.kommundel.ortid</code></td>
+<td>Sträng</td>
+</tr>
+<tr>
+<td><code>adressomrade.kommundel.objektstatus</code></td>
+<td>Sträng ("Gällande")</td>
+</tr>
+<tr>
+<td><code>adressomrade.kommundel.kommunkod</code></td>
+<td>Sträng</td>
+</tr>
+<tr>
+<td><code>adressomrade.kommundel.kommunnamn</code></td>
+<td>Sträng</td>
+</tr>
+<tr>
+<td><code>gardsadressomrade.faststalltNamn</code></td>
+<td>Sträng</td>
+</tr>
+<tr>
+<td><code>gardsadressomrade.ortid</code></td>
+<td>Sträng</td>
+</tr>
+<tr>
+<td><code>gardsadressomrade.objektstatus</code></td>
+<td>Sträng ("Gällande")</td>
+</tr>
+<tr>
+<td><code>gardsadressomrade.adressomrade.objektidentitet</code></td>
+<td>Sträng (UUID)</td>
+</tr>
+<tr>
+<td><code>gardsadressomrade.adressomrade.objektversion</code></td>
+<td>Heltal</td>
+</tr>
+<tr>
+<td><code>gardsadressomrade.adressomrade.versionGiltigFran</code></td>
+<td>Sträng (Datum)</td>
+</tr>
+<tr>
+<td><code>gardsadressomrade.adressomrade.faststalltNamn</code></td>
+<td>Sträng</td>
+</tr>
+<tr>
+<td><code>gardsadressomrade.adressomrade.ortid</code></td>
+<td>Sträng</td>
+</tr>
+<tr>
+<td><code>gardsadressomrade.adressomrade.adressomradestyp</code></td>
+<td>Sträng ("Gatuadressomrade", "Metertalsadressomrade", "Byadressomrade")</td>
+</tr>
+<tr>
+<td><code>gardsadressomrade.adressomrade.objektstatus</code></td>
+<td>Sträng ("Gällande")</td>
+</tr>
+<tr>
+<td><code>gardsadressomrade.adressomrade.kommundel.objektidentitet</code></td>
+<td>Sträng (UUID)</td>
+</tr>
+<tr>
+<td><code>gardsadressomrade.adressomrade.kommundel.objektversion</code></td>
+<td>Heltal</td>
+</tr>
+<tr>
+<td><code>gardsadressomrade.adressomrade.kommundel.versionGiltigFran</code></td>
+<td>Sträng (Datum)</td>
+</tr>
+<tr>
+<td><code>gardsadressomrade.adressomrade.kommundel.faststalltNamn</code></td>
+<td>Sträng</td>
+</tr>
+<tr>
+<td><code>gardsadressomrade.adressomrade.kommundel.ortid</code></td>
+<td>Sträng</td>
+</tr>
+<tr>
+<td><code>gardsadressomrade.adressomrade.kommundel.objektstatus</code></td>
+<td>Sträng ("Gällande")</td>
+</tr>
+<tr>
+<td><code>gardsadressomrade.adressomrade.kommundel.kommunkod</code></td>
+<td>Sträng</td>
+</tr>
+<tr>
+<td><code>gardsadressomrade.adressomrade.kommundel.kommunnamn</code></td>
+<td>Sträng</td>
+</tr>
+<tr>
+<td><code>adressplatsanmarkning</code></td>
+<td>Lista med värdekartor</td>
+</tr>
+<tr>
+<td><code>adressplatsanmarkning[*].anmarkningstyp</code></td>
+<td>Sträng</td>
+</tr>
+<tr>
+<td><code>adressplatsanmarkning[*].anmarkningstext</code></td>
+<td>Sträng</td>
+</tr>
+<tr>
+<td><code>adressattAnlaggning.anlaggningstyp</code></td>
+<td>Sträng</td>
+</tr>
+<tr>
+<td><code>adressattAnlaggning.anlaggningstext</code></td>
+<td>Sträng</td>
+</tr>
+<tr>
+<td><code>distriktstillhorighet.distriktskod</code></td>
+<td>Sträng</td>
+</tr>
+<tr>
+<td><code>distriktstillhorighet.distriktsnamn</code></td>
+<td>Sträng</td>
+</tr>
+<tr>
+<td><code>registerenhetsreferens.objektidentitet</code></td>
+<td>Sträng (UUID)</td>
+</tr>
+<tr>
+<td><code>registerenhetsreferens.beteckning</code></td>
+<td>Sträng</td>
+</tr>
+<tr>
+<td><code>registerenhetsreferens.typ</code></td>
+<td>Sträng ("Fastighet" eller "Samfällighet")</td>
+</tr>
+</tbody>
+</table>
+<h3 id="exempel">Exempel<a class="headerlink" href="#exempel" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>address( @geometry )</code> &rarr; värdekarta med information för den adress som ligger närmast aktuellt objekt</li></li>
+<li><code>address( '8e0cd471-f10c-47eb-a9ea-e95355e4f2e1' )[ 'registerenhetsreferens.beteckning' ]</code> &rarr; fastighetsbeteckning för adressen med den givna identiteten</li></li>
+<li><code>address( 'Gjörwellsgatan 22' )[ 'adressomrade.faststalltNamn' ]</code> &rarr; <code>'Gjörwellsgatan'</code></li></li>
+<li><code>map_get( address( 'Kyrkogatan 10' ), 'adressplatsattribut.adressplatsbeteckning.adressplatsnummer' )</code> &rarr; <code>'10'</code> (notera att adressbeteckningen förekommer i många orter i Sverige, och exakt vilken adress som returneras därmed ej är definerat)</li></li>
+<li><code>map_get( address( 'Kyrkogatan 10', '1784' ), 'adressomrade.kommundel.kommunnamn' )</code> &rarr; <code>'Arvika'</code></li></li>
+</ul>
+<h2 id="address_geometry"><code>address_geometry(geometri | id | beteckning, [kommunkod])</code><a class="headerlink" href="#address_geometry" title="Permanent link">&para;</a></h2>
+<p>Hämtar geometrin för en adress. Funktionen kan ta olika typer av argument.</p>
+<h3 id="argument_4">Argument<a class="headerlink" href="#argument_4" title="Permanent link">&para;</a></h3>
+<h4 id="geometri_1">Geometri<a class="headerlink" href="#geometri_1" title="Permanent link">&para;</a></h4>
+<p>Hämtar geometrin för den adress som ligger närmast den givna geometrin.</p>
+<h5 id="syntax_3">Syntax<a class="headerlink" href="#syntax_3" title="Permanent link">&para;</a></h5>
+<pre><code>address(geometri)
+</code></pre>
+<h5 id="argument_5">Argument<a class="headerlink" href="#argument_5" title="Permanent link">&para;</a></h5>
+<table>
+    <tr>
+        <td><pre><code>geometri</code></pre></td>
+        <td>geometri som ska sökas i närheten av</td>
+    </tr>
+</table>
+
+<h4 id="uuid_1">UUID<a class="headerlink" href="#uuid_1" title="Permanent link">&para;</a></h4>
+<p>Hämtar geometrin för adressen med en given identitet (UUID).</p>
+<h5 id="syntax_4">Syntax<a class="headerlink" href="#syntax_4" title="Permanent link">&para;</a></h5>
+<pre><code>address(id)
+</code></pre>
+<h5 id="argument_6">Argument<a class="headerlink" href="#argument_6" title="Permanent link">&para;</a></h5>
+<table>
+    <tr>
+        <td><pre><code>id</code></pre></td>
+        <td>identitet för den adress som ska hämtas</td>
+    </tr>
+</table>
+
+<h4 id="beteckning_1">Beteckning<a class="headerlink" href="#beteckning_1" title="Permanent link">&para;</a></h4>
+<p>Hämtar geometrin för adressen med en given beteckning, sökningen kan valfritt begränsas till en given kommunkod.</p>
+<h5 id="syntax_5">Syntax<a class="headerlink" href="#syntax_5" title="Permanent link">&para;</a></h5>
+<pre><code>address(beteckning, [kommunkod])
+</code></pre>
+<p><code>[ ]</code> markerar ett valfritt argument</p>
+<h5 id="argument_7">Argument<a class="headerlink" href="#argument_7" title="Permanent link">&para;</a></h5>
+<table>
+    <tr>
+        <td><pre><code>beteckning</code></pre></td>
+        <td>beteckning för den adress som ska hämtas</td>
+    </tr>
+    <tr>
+        <td><pre><code>kommunkod</code></pre></td>
+        <td>kommunkod inom vilken adresser ska sökas på</td>
+    </tr>
+</table>
+
+<h5 id="noteringar_1">Noteringar<a class="headerlink" href="#noteringar_1" title="Permanent link">&para;</a></h5>
+<p>Sökning på beteckning utan kommunkod kan ge adresser i fel del av landet</p>
+<h3 id="svar_1">Svar<a class="headerlink" href="#svar_1" title="Permanent link">&para;</a></h3>
+<p>En punktgeometri.</p>
+<h3 id="exempel_1">Exempel<a class="headerlink" href="#exempel_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>address_geometry( @geometry )</code> &rarr; punktgeometri för den adress som ligger närmast aktuellt objekt</li></li>
+<li><code>address_geometry( '8e0cd471-f10c-47eb-a9ea-e95355e4f2e1' )</code> &rarr; punktgeometri för adressen med den givna identiteten</li></li>
+<li><code>address_geometry( 'Gjörwellsgatan 22' )</code> &rarr; punktgeometri för adressen till Swecos huvudkontor</li></li>
+<li><code>address_geometry( 'Kyrkogatan 10' )</code> &rarr; punktgeometri för adressen "Kyrkogatan 10" i en slumpvis ort i Sverige där adressen förekommer</li></li>
+<li><code>address_geometry( 'Kyrkogatan 10', '1784' )</code> &rarr; punktgeometri för adressen "Kyrkogatan 10", garanterat i Arvika</li></li>
+</ul>
+<h2 id="property"><code>property(geometri | id | beteckning, [kommunkod])</code><a class="headerlink" href="#property" title="Permanent link">&para;</a></h2>
+<p>Hämtar information för en fastighet eller samfällighet. Funktionen kan ta olika typer av argument.</p>
+<h3 id="argument_8">Argument<a class="headerlink" href="#argument_8" title="Permanent link">&para;</a></h3>
+<h4 id="geometri_2">Geometri<a class="headerlink" href="#geometri_2" title="Permanent link">&para;</a></h4>
+<p>Hämtar information för den fastighet eller samfällighet inom vilken den givna punkten ligger.</p>
+<h5 id="syntax_6">Syntax<a class="headerlink" href="#syntax_6" title="Permanent link">&para;</a></h5>
+<pre><code>property_geometry(geometri)
+</code></pre>
+<h5 id="argument_9">Argument<a class="headerlink" href="#argument_9" title="Permanent link">&para;</a></h5>
+<table>
+  <tr>
+     <td><pre><code>geometri</code></pre></td>
+     <td>geometri som ska sökas i närheten av</td>
+  </tr>
+</table>
+
+<h4 id="uuid_2">UUID<a class="headerlink" href="#uuid_2" title="Permanent link">&para;</a></h4>
+<p>Hämtar information för fastigheten eller samfälligheten med en given identitet (UUID).</p>
+<h5 id="syntax_7">Syntax<a class="headerlink" href="#syntax_7" title="Permanent link">&para;</a></h5>
+<pre><code>property_geometry(id)
+</code></pre>
+<h5 id="argument_10">Argument<a class="headerlink" href="#argument_10" title="Permanent link">&para;</a></h5>
+<table>
+    <tr>
+        <td><pre><code>id</code></pre></td>
+        <td>identitet för den fastighet eller samfällighet vars information som ska hämtas</td>
+    </tr>
+</table>
+
+<h4 id="beteckning_2">Beteckning<a class="headerlink" href="#beteckning_2" title="Permanent link">&para;</a></h4>
+<p>Hämtar information för fastigheten eller samfälligheten med en given beteckning, sökningen kan valfritt begränsas till en given kommunkod.</p>
+<h5 id="syntax_8">Syntax<a class="headerlink" href="#syntax_8" title="Permanent link">&para;</a></h5>
+<pre><code>property_geometry(beteckning, [kommunkod])
+</code></pre>
+<p><code>[ ]</code> markerar ett valfritt argument</p>
+<h5 id="argument_11">Argument<a class="headerlink" href="#argument_11" title="Permanent link">&para;</a></h5>
+<table>
+    <tr>
+        <td><pre><code>beteckning</code></pre></td>
+        <td>beteckning för den fastigheten eller samfälligheten som ska hämtas</td>
+    </tr>
+    <tr>
+        <td><pre><code>kommunkod</code></pre></td>
+        <td>kommunkod inom vilken fastigheter och samfälligheter ska sökas på</td>
+    </tr>
+</table>
+
+<h5 id="noteringar_2">Noteringar<a class="headerlink" href="#noteringar_2" title="Permanent link">&para;</a></h5>
+<p>Sökning på beteckning utan kommunkod eller kommunnamn i beteckningen kan ge fastigheter eller samfälligheter i fel del av landet.</p>
+<h3 id="svar_2">Svar<a class="headerlink" href="#svar_2" title="Permanent link">&para;</a></h3>
+<p>Vilket svar som erhålles är beroende av vilka tjänster som är konfigurerade i <a href="../installningar/">inställningarna</a>.</p>
+<h4 id="for-fastighetsindelning-direkt">För Fastighetsindelning Direkt<a class="headerlink" href="#for-fastighetsindelning-direkt" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Nyckel</th>
+<th>Beskrivning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>objektidentitet</td>
+<td>Sträng (UUID)</td>
+</tr>
+<tr>
+<td>objekttyp</td>
+<td>Sträng ("fastighetsområde")</td>
+</tr>
+<tr>
+<td>senastandrad</td>
+<td>Sträng (Datum &amp; Tid)</td>
+</tr>
+<tr>
+<td>lanskod</td>
+<td>Sträng</td>
+</tr>
+<tr>
+<td>kommunkod</td>
+<td>Sträng</td>
+</tr>
+<tr>
+<td>kommunnamn</td>
+<td>Sträng</td>
+</tr>
+<tr>
+<td>trakt</td>
+<td>Sträng</td>
+</tr>
+<tr>
+<td>block</td>
+<td>Sträng</td>
+</tr>
+<tr>
+<td>enhet</td>
+<td>Heltal</td>
+</tr>
+<tr>
+<td>etikett</td>
+<td>Sträng</td>
+</tr>
+<tr>
+<td>beteckning</td>
+<td>Sträng</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Begränsningar i tjänsten Fastighetsindelning Direkt</p>
+<p>Tjänsten Fastighetsindelning Direkt är avgiftsfri, men innehåller i dagsläget ej 3D-fastigheter.</p>
+</div>
+<h4 id="for-fastighet-och-samfallighet-direkt">För Fastighet och Samfällighet Direkt<a class="headerlink" href="#for-fastighet-och-samfallighet-direkt" title="Permanent link">&para;</a></h4>
+<h3 id="exempel_2">Exempel<a class="headerlink" href="#exempel_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>property( @geometry )</code> &rarr; värdekarta med information för den fastighet eller samfällighet inom vilken aktuellt objekt ligger</li>
+<li><code>property( '8e0cd471-f10c-47eb-a9ea-e95355e4f2e1' )[ 'beteckning' ]</code> &rarr; beteckning för fastigheten eller samfälligheten med den givna identiteten</li>
+<li><code>property( 'Stockholm Trängkåren 6' )[ 'objektidentitet' ]</code> &rarr; identitet för fastigheten på vilken Swecos huvudkontor ligger</li>
+<li><code>map_get( property( 'Torp 1:3' ), 'kommunnamn' )</code> &rarr; kommunnamn fastigheten "Torp 1:3" i en slumpvis ort i Sverige där fastighetsbeteckningen förekommer</li>
+<li><code>map_get( property( 'Torp 1:3', '2084' ), 'kommunnamn ')</code> &rarr; <code>'Avesta'</code></li>
+</ul>
+<h2 id="property_geometry"><code>property_geometry(geometri | id | beteckning, [kommunkod])</code><a class="headerlink" href="#property_geometry" title="Permanent link">&para;</a></h2>
+<p>Hämtar geometrin för en fastighet eller samfällighet. Funktionen kan ta olika typer av argument.</p>
+<h3 id="noteringar_3">Noteringar<a class="headerlink" href="#noteringar_3" title="Permanent link">&para;</a></h3>
+<p>Majoriteten av fastigheter är redovisade som polygoner, men det finns såväl fastigheter som samfälligheter som istället är redovisade som linjer eller punkter.</p>
+<div class="admonition note">
+<p class="admonition-title">Begränsningar i tjänsten Fastighetsindelning Direkt</p>
+<p>Tjänsten Fastighetsindelning Direkt är avgiftsfri, men innehåller i dagsläget ej 3D-fastigheter.</p>
+</div>
+<h3 id="argument_12">Argument<a class="headerlink" href="#argument_12" title="Permanent link">&para;</a></h3>
+<h4 id="geometri_3">Geometri<a class="headerlink" href="#geometri_3" title="Permanent link">&para;</a></h4>
+<p>Hämtar geometrin för den fastighet eller samfällighet inom vilken den givna punkten ligger.</p>
+<h5 id="syntax_9">Syntax<a class="headerlink" href="#syntax_9" title="Permanent link">&para;</a></h5>
+<pre><code>property_geometry(geometri)
+</code></pre>
+<h5 id="argument_13">Argument<a class="headerlink" href="#argument_13" title="Permanent link">&para;</a></h5>
+<table>
+  <tr>
+     <td><pre><code>geometri</code></pre></td>
+     <td>geometri som ska sökas i närheten av</td>
+  </tr>
+</table>
+
+<h4 id="uuid_3">UUID<a class="headerlink" href="#uuid_3" title="Permanent link">&para;</a></h4>
+<p>Hämtar geometrin för fastigheten eller samfälligheten med en given identitet (UUID).</p>
+<h5 id="syntax_10">Syntax<a class="headerlink" href="#syntax_10" title="Permanent link">&para;</a></h5>
+<pre><code>property_geometry(id)
+</code></pre>
+<h5 id="argument_14">Argument<a class="headerlink" href="#argument_14" title="Permanent link">&para;</a></h5>
+<table>
+    <tr>
+        <td><pre><code>id</code></pre></td>
+        <td>identitet för den fastighet eller samfällighet vars geometri som ska hämtas</td>
+    </tr>
+</table>
+
+<h4 id="beteckning_3">Beteckning<a class="headerlink" href="#beteckning_3" title="Permanent link">&para;</a></h4>
+<p>Hämtar geometrin för fastigheten eller samfälligheten med en given beteckning, sökningen kan valfritt begränsas till en given kommunkod.</p>
+<h5 id="syntax_11">Syntax<a class="headerlink" href="#syntax_11" title="Permanent link">&para;</a></h5>
+<pre><code>property_geometry(beteckning, [kommunkod])
+</code></pre>
+<p><code>[ ]</code> markerar ett valfritt argument</p>
+<h5 id="argument_15">Argument<a class="headerlink" href="#argument_15" title="Permanent link">&para;</a></h5>
+<table>
+    <tr>
+        <td><pre><code>beteckning</code></pre></td>
+        <td>beteckning för den fastigheten eller samfälligheten som ska hämtas</td>
+    </tr>
+    <tr>
+        <td><pre><code>kommunkod</code></pre></td>
+        <td>kommunkod inom vilken fastigheter och samfälligheter ska sökas på</td>
+    </tr>
+</table>
+
+<h5 id="noteringar_4">Noteringar<a class="headerlink" href="#noteringar_4" title="Permanent link">&para;</a></h5>
+<p>Sökning på beteckning utan kommunkod eller kommunnamn i beteckningen kan ge fastigheter eller samfälligheter i fel del av landet.</p>
+<h3 id="exempel_3">Exempel<a class="headerlink" href="#exempel_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>property_geometry( @geometry )</code> &rarr; geometri för den fastighet eller samfällighet inom vilken aktuellt objekt ligger</li>
+<li><code>property_geometry( '8e0cd471-f10c-47eb-a9ea-e95355e4f2e1' )</code> &rarr; geometri för adressen med den givna identiteten</li>
+<li><code>property_geometry( 'Stockholm Trängkåren 6' )</code> &rarr; polygongeometri för fastigheten på vilken Swecos huvudkontor ligger</li>
+<li><code>property_geometry( 'Torp 1:3' )</code> &rarr; geometri för fastigheten "Torp 1:3" i en slumpvis ort i Sverige där fastighetsbeteckningen förekommer</li>
+<li><code>property_geometry( 'Torp 1:3', '2084' )</code> &rarr; polygongeometri för fastigheten "Torp 1:3", garanterat i Avesta</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Sidfot" >
+        
+          
+          <a href="../algoritmer/download-properties-polygons/" class="md-footer__link md-footer__link--prev" aria-label="Föregående: Hämta fastigheter och samfälligheter inom givna polygoner">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Föregående
+              </span>
+              <div class="md-ellipsis">
+                Hämta fastigheter och samfälligheter inom givna polygoner
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../development/contribute/" class="md-footer__link md-footer__link--next" aria-label="Nästa: Contributing Guidelines">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Nästa
+              </span>
+              <div class="md-ellipsis">
+                Contributing Guidelines
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; QGIS Sverige
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/qgissverige" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "navigation.footer", "navigation.tabs", "navigation.sections", "navigation.indexes", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Kopierat till urklipp", "clipboard.copy": "Kopiera till urklipp", "search.result.more.one": "1 till p\u00e5 denna sida", "search.result.more.other": "# till p\u00e5 denna sida", "search.result.none": "Inga s\u00f6kresultat", "search.result.one": "1 s\u00f6kresultat", "search.result.other": "# s\u00f6kresultat", "search.result.placeholder": "Skriv s\u00f6kord", "search.result.term.missing": "Saknas", "select.version": "V\u00e4lj version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

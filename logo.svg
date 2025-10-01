@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+    <style>
+        .needle {
+            fill: #e41e2a;
+        }
+        .circle {
+            fill: white;
+            stroke-width: 1;
+            stroke: black;
+        }
+        @media (prefers-color-scheme: dark) {
+            .needle {
+                fill: #e41e2a;
+            }
+            .circle {
+                stroke: white;
+            }
+        }
+    </style>
+    <polygon points="26.98 21.01 21 21.01 21 26.96 25.7 31.66 25.7 25.7 31.68 25.7 26.98 21.01" class="needle" />
+    <polygon points="28.28 34.24 28.28 28.28 34.26 28.28 47.99 41.99 47.99 47.99 42.01 47.99 28.28 34.24" class="needle" />
+    <path d="M23.99,2.99C12.41,2.99,2.99,12.41,2.99,23.99s9.42,21,21,21c2.62,0,5.15-.48,7.56-1.42l-6.66-6.64c-.3.02-.6.07-.9.07-7.17,0-13-5.83-13-13s5.83-13,13-13,13,5.83,13,13c0,.31-.04.61-.07.92,0,0,6.64,6.64,6.64,6.63.94-2.41,1.43-4.94,1.43-7.56,0-11.58-9.42-21-21-21Z" class="circle" />
+</svg>

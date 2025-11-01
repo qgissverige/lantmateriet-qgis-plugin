@@ -34,7 +34,7 @@ jobs:
       - name: Compile translations
         run: lrelease lantmateriet_qgis/resources/i18n/*.ts
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: translations-build
           path: lantmateriet_qgis/**/*.qm
@@ -82,7 +82,7 @@ jobs:
         run: |
           mv lantmateriet_qgis lantmateriet_qgis.backup
           unzip lantmateriet_qgis.$VERSION.zip -d lantmateriet_qgis
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: lantmateriet_qgis.${{ env.VERSION }}
           path: lantmateriet_qgis

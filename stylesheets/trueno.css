@@ -1,0 +1,111 @@
+@font-face {
+    font-family: 'Trueno';
+        src: url('../assets/external/fontlibrary.org/assets/fonts/trueno/69d25d10193139d4a9cfc9d2196c23dc/cbf774cd9c827708230275171001a9d8/TruenoUltraLight.otf') format('opentype');
+    font-weight: 100;
+    font-style: normal;
+      }
+
+@font-face {
+    font-family: 'Trueno';
+        src: url('../assets/external/fontlibrary.org/assets/fonts/trueno/69d25d10193139d4a9cfc9d2196c23dc/a50cd3a41d1d23712fffa996828ff858/TruenoUltraLightItalic.otf') format('opentype');
+    font-weight: 100;
+    font-style: italic;
+      }
+
+@font-face {
+    font-family: 'Trueno';
+        src: url('../assets/external/fontlibrary.org/assets/fonts/trueno/69d25d10193139d4a9cfc9d2196c23dc/5258bb6653ec14bcbaed8e2c3452ef6c/TruenoLight.otf') format('opentype');
+    font-weight: 200;
+    font-style: normal;
+      }
+
+@font-face {
+    font-family: 'Trueno';
+        src: url('../assets/external/fontlibrary.org/assets/fonts/trueno/69d25d10193139d4a9cfc9d2196c23dc/49c656db3c7dd8f38a90dd59b777baf8/TruenoLightItalic.otf') format('opentype');
+    font-weight: 200;
+    font-style: italic;
+      }
+
+@font-face {
+    font-family: 'Trueno';
+        src: url('../assets/external/fontlibrary.org/assets/fonts/trueno/69d25d10193139d4a9cfc9d2196c23dc/7aba95e5ff98d5a275ced8ae58144c5e/TruenoRegular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+      }
+
+@font-face {
+    font-family: 'Trueno';
+        src: url('../assets/external/fontlibrary.org/assets/fonts/trueno/69d25d10193139d4a9cfc9d2196c23dc/d1e41148c662382304e37e956cbd8f55/TruenoRegularItalic.otf') format('opentype');
+    font-weight: 400;
+    font-style: italic;
+      }
+
+@font-face {
+    font-family: 'Trueno';
+        src: url('../assets/external/fontlibrary.org/assets/fonts/trueno/69d25d10193139d4a9cfc9d2196c23dc/97519f3659745f54b9ae215c273644bb/TruenoSemiBold.otf') format('opentype');
+    font-weight: 600;
+    font-style: normal;
+      }
+
+@font-face {
+    font-family: 'Trueno';
+        src: url('../assets/external/fontlibrary.org/assets/fonts/trueno/69d25d10193139d4a9cfc9d2196c23dc/3ee01de9b86a51177048aa2b99dda6ae/TruenoSemiBoldItalic.otf') format('opentype');
+    font-weight: 600;
+    font-style: italic;
+      }
+
+@font-face {
+    font-family: 'Trueno';
+        src: url('../assets/external/fontlibrary.org/assets/fonts/trueno/69d25d10193139d4a9cfc9d2196c23dc/75e1a3c3d0b921692ddf6a298bedab62/TruenoBold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+      }
+
+@font-face {
+    font-family: 'Trueno';
+        src: url('../assets/external/fontlibrary.org/assets/fonts/trueno/69d25d10193139d4a9cfc9d2196c23dc/76f5ed5b1bf9e1beb1ef0c0a3a6e50bb/TruenoBoldItalic.otf') format('opentype');
+    font-weight: 700;
+    font-style: italic;
+      }
+
+@font-face {
+    font-family: 'Trueno';
+        src: url('../assets/external/fontlibrary.org/assets/fonts/trueno/69d25d10193139d4a9cfc9d2196c23dc/88d5fca36a740ee22e38ea829729e349/TruenoExtraBold.otf') format('opentype');
+    font-weight: 800;
+    font-style: normal;
+      }
+
+@font-face {
+    font-family: 'Trueno';
+        src: url('../assets/external/fontlibrary.org/assets/fonts/trueno/69d25d10193139d4a9cfc9d2196c23dc/a565a195de0540808e4dc84675ba99dd/TruenoExtraBoldItalic.otf') format('opentype');
+    font-weight: 800;
+    font-style: italic;
+      }
+
+@font-face {
+    font-family: 'Trueno';
+        src: url('../assets/external/fontlibrary.org/assets/fonts/trueno/69d25d10193139d4a9cfc9d2196c23dc/765ce4cb60db1c36d07f0e08f8b44156/TruenoBlack.otf') format('opentype');
+    font-weight: 900;
+    font-style: normal;
+      }
+
+@font-face {
+    font-family: 'Trueno';
+        src: url('../assets/external/fontlibrary.org/assets/fonts/trueno/69d25d10193139d4a9cfc9d2196c23dc/d964eca3c7088584a77696c4a7db2884/TruenoBlackItalic.otf') format('opentype');
+    font-weight: 900;
+    font-style: italic;
+      }
+
+@font-face {
+    font-family: 'Trueno';
+        src: url('../assets/external/fontlibrary.org/assets/fonts/trueno/69d25d10193139d4a9cfc9d2196c23dc/87bdac0a04e4baf5bf4e424e13cb842e/TruenoUltraBlack.otf') format('opentype');
+    font-weight: 1000;
+    font-style: normal;
+      }
+
+@font-face {
+    font-family: 'Trueno';
+        src: url('../assets/external/fontlibrary.org/assets/fonts/trueno/69d25d10193139d4a9cfc9d2196c23dc/834e541fa654ba077a6ba8252dbcba73/TruenoUltraBlackItalic.otf') format('opentype');
+    font-weight: 1000;
+    font-style: italic;
+      }

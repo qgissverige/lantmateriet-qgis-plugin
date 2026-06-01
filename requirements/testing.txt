@@ -2,4 +2,4 @@
 # --------------------
 
 pytest-cov>=4
-packaging>=23
+packaging>=26.2

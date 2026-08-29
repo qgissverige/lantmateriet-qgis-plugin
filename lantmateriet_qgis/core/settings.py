@@ -136,31 +136,34 @@ class Settings:
                         )
                     else:
                         config = load_oauth_config(self.ngp_authcfg)
-                        if self.ngp == "production" and config["tokenUrl"] != (
+                        token_url = config.get("tokenUrl")
+                        request_url = config.get("requestUrl")
+                        grant_flow = config.get("grantFlow")
+                        if self.ngp == "production" and token_url != (
                             URLConfig.LM_PROD_AUTH_URL + "token"
                         ):
                             errors.append(
                                 "Token URL för Nationella geodataplattformen är inte giltig"
                             )
-                        elif self.ngp == "verification" and config["tokenUrl"] != (
+                        elif self.ngp == "verification" and token_url != (
                             URLConfig.LM_VER_AUTH_URL + "token"
                         ):
                             errors.append(
                                 "Token URL för Nationella geodataplattformen är inte giltig"
                             )
-                        if config["grantFlow"] in (
+                        if grant_flow in (
                             GrantFlow.AUTH_CODE,
                             GrantFlow.AUTH_CODE_PKCE,
                         ):
-                            if self.ngp == "production" and config["requestUrl"] != (
+                            if self.ngp == "production" and request_url != (
                                 URLConfig.LM_PROD_AUTH_URL + "authorize"
                             ):
                                 errors.append(
                                     "Token URL för Nationella geodataplattformen är inte giltig"
                                 )
-                            elif self.ngp == "verification" and config[
-                                "requestUrl"
-                            ] != (URLConfig.LM_VER_AUTH_URL + "authorize"):
+                            elif self.ngp == "verification" and request_url != (
+                                URLConfig.LM_VER_AUTH_URL + "authorize"
+                            ):
                                 errors.append(
                                     "Token URL för Nationella geodataplattformen är inte giltig"
                                 )
@@ -184,31 +187,34 @@ class Settings:
                         )
                     else:
                         config = load_oauth_config(self.ovrig_authcfg)
-                        if self.ovrig == "production" and config["tokenUrl"] != (
+                        token_url = config.get("tokenUrl")
+                        request_url = config.get("requestUrl")
+                        grant_flow = config.get("grantFlow")
+                        if self.ovrig == "production" and token_url != (
                             URLConfig.LM_PROD_AUTH_URL + "token"
                         ):
                             errors.append(
                                 "Token URL för Nationella geodataplattformen är inte giltig"
                             )
-                        elif self.ovrig == "verification" and config["tokenUrl"] != (
+                        elif self.ovrig == "verification" and token_url != (
                             URLConfig.LM_VER_AUTH_URL + "token"
                         ):
                             errors.append(
                                 "Token URL för Nationella geodataplattformen är inte giltig"
                             )
-                        if config["grantFlow"] in (
+                        if grant_flow in (
                             GrantFlow.AUTH_CODE,
                             GrantFlow.AUTH_CODE_PKCE,
                         ):
-                            if self.ovrig == "production" and config["requestUrl"] != (
+                            if self.ovrig == "production" and request_url != (
                                 URLConfig.LM_PROD_AUTH_URL + "authorize"
                             ):
                                 errors.append(
                                     "Authorize URL för Övriga tjänster är inte giltig"
                                 )
-                            elif self.ovrig == "verification" and config[
-                                "requestUrl"
-                            ] != (URLConfig.LM_VER_AUTH_URL + "authorize"):
+                            elif self.ovrig == "verification" and request_url != (
+                                URLConfig.LM_VER_AUTH_URL + "authorize"
+                            ):
                                 errors.append(
                                     "Authorize URL för Övriga tjänster är inte giltig"
                                 )

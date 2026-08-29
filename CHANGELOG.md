@@ -2,6 +2,11 @@
 
 Detta format är baserat på [Keep a Changelog](https://keepachangelog.com/sv/) och detta projekt använder sig av [Semantic Versioning](https://semver.org/).
 
+## Ej släppt
+
+* Korrigera krasch i inställningarna när en OAuth2-konfiguration saknar scope
+* Kontrollera vald autentisering innan scopes läses vid sparande av inställningar
+
 ## 1.0.1 - 2025-09-26
 
 * Korrigera fel vid loggning av nätverksfel vid sökning
